@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-fab bottom right>
+    <button ion-fab (click)="newExam()" color="primary"><ion-icon name="md-add" style="font-size:30pt; color: white"></ion-icon></button>
+   </ion-fab>
+  <ion-list class="page-header card-corners">
+    <ion-item class="item-trns">
+      <ion-avatar item-start>
+        <img src="assets/imgs/truck1.png">
+      </ion-avatar>
+      <h1>Commercial Vehicle Road Test</h1>
+    </ion-item>
+  </ion-list>
+
+  <div class="spacer" style="width: 748px; height: 7px;"></div>
+
+  <ion-card>
+    <div>
+      <img src="assets/imgs/home.png" class="big-image">
+    </div>
+    <ion-list>
+        <ion-item class="small-message" style="border-bottom:1px solid #DDD">
+          <ion-icon  style="color:red" name="ios-bulb"></ion-icon>
+          <span style="color:red">This is your message of the day.</span>
+        </ion-item>
+        <ion-item class="small-message" style="border-bottom:1px solid #DDD">
+          <ion-icon style="color:blue" name="md-help-circle"></ion-icon>
+          <span style="color:blue">Click here for help</span>
+        </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <div class="spacer" style="width: 748px; height: 7px;"></div>
+
+  <ion-list class="sub-header card-corners">
+    <ion-item class="item-trns">
+      <ion-avatar item-start style="margin-top: 0">
+        <img src="assets/imgs/truck1.png">
+      </ion-avatar>
+      <h2>Examination List</h2>
+    </ion-item>
+  </ion-list>
+    
+  <ion-card>
+    <ion-list *ngFor="let item of exams">
+      <ion-item-sliding [hidden]="item.results.qualified != 'Yes'">
+        <ion-item style="border-bottom: 1px solid #CCC;" (click)="openExam(item)">
+          <ion-icon name="md-checkmark-circle"></ion-icon>
+          {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumTime' }} 
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="deleteExam(item)">
+            <ion-icon class="slider-icon" name="md-trash"></ion-icon> Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding [hidden]="item.results.qualified != 'No'">
+        <ion-item style="border-bottom: 1px solid #CCC;" (click)="openExam(item)">
+            <ion-icon name="md-close-circle"></ion-icon>
+            {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumTime' }} 
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="deleteExam(item)">
+            <ion-icon class="slider-icon" name="md-trash"></ion-icon> Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item-sliding [hidden]="item.results.qualified != 'Discontinued'">
+        <ion-item style="border-bottom: 1px solid #CCC;" (click)="openExam(item)">
+            <ion-icon name="md-help-circle"></ion-icon>
+            {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumTime' }} 
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="deleteExam(item)">
+            <ion-icon class="slider-icon" name="md-trash"></ion-icon> Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card> 
+  
+  <div class="spacer" style="width: 748px; height: 15px;"></div>
+
+  <ion-card class="sub-header">
+    <ion-item class="item-trns" style="border: 0">
+      <h2 style="color: white;text-align: center;font-family:Arial, Helvetica, sans-serif">Copyright &copy; ICBC 2018</h2>
+    </ion-item>
+  </ion-card>  
+
+</ion-content>

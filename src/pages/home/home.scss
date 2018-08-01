@@ -1,0 +1,40 @@
+page-home {
+
+    h2 {
+        font-family: 'righteous';
+        color: white;
+        padding-top: 0;
+    }
+
+    ion-icon {
+        font-size: 24pt;
+        color: #4c4c4c;
+    }
+
+    ion-label {
+        color: #555;
+    }
+
+    .card-md {
+        margin: 0;
+        width: 100%;
+    }
+
+    ion-item-sliding {
+        color: rebeccapurple;
+        border-bottom: 1px solid #CCC; 
+    }
+
+    .button {
+        text-transform: none;
+    }
+
+    .slider-icon {
+        color: white;
+        font-size: 18pt;
+    }
+
+    .comment-button {
+        padding-left: 10px !important;
+    }
+}

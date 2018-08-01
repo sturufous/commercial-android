@@ -1,0 +1,41 @@
+.ios, .md {
+ 
+    page-details {
+
+        h2 {
+            padding-top: 0;
+        }    
+ 
+        ion-input {
+            padding-left: 10px;
+            color: #6c6c6c;
+        }
+ 
+        ion-datetime {
+            padding-left: 10px;
+            color: #6c6c6c;
+        }
+ 
+        ion-label {
+            color: #6c6c6c;
+        }
+ 
+        [floating] {
+            margin-left: 10px;
+        }
+
+        ion-icon {
+            font-size: 20pt;
+            color: #4c4c4c;
+        }
+
+        .card-md {
+            margin: 0;
+            width: 100%;
+        }    
+
+        .header-badge {
+            padding-left: 2px;
+        }
+    }
+}

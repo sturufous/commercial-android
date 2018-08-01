@@ -1,0 +1,156 @@
+<!--
+  Generated template for the DetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <div class="header-title">
+      <ion-title>{{ sharedData.client.get('givenName').value }} {{ sharedData.client.get('surname').value }}</ion-title>
+    </div>
+    <div style="float: right">
+        <button ion-button icon-only clear>
+          <ion-badge item-end secondary>
+            {{ sharedData.examRevision }}
+          </ion-badge>
+          <ion-icon class="header-badge" name="md-reverse-camera"></ion-icon>
+        </button>
+        <button ion-button icon-only clear>
+          <ion-badge item-end secondary>
+            {{ sharedData.licenseClass }}
+        </ion-badge>
+        <ion-icon class="header-badge" name="md-bus"></ion-icon>
+      </button>
+      <button ion-button icon-only clear>
+        <ion-badge item-end [ngClass]="sharedData.badgeColor(sharedData.getTotalDemeritCount())">
+          {{ sharedData.getTotalDemeritCount() }}
+        </ion-badge>
+        <ion-icon name="notifications" class="header-badge"></ion-icon>
+      </button>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-fab bottom right>
+    <button ion-fab (click)="saveCurrentExam()" color="primary"><ion-icon name="md-bookmark" style="font-size:24pt;color:white"></ion-icon></button>
+  </ion-fab>
+  <ion-list class="page-header card-corners">
+    <ion-item class="item-trns">
+      <ion-avatar item-start>
+        <img src="assets/imgs/truck1.png">
+      </ion-avatar>
+      <h1>Details</h1>
+    </ion-item>
+  </ion-list>
+
+  <ion-card>
+    <ion-list>
+      <ion-item class="small-message" style="border-bottom:1px solid #DDD;padding-left:10px">
+        Please fill out all mandatory fields
+      </ion-item>
+      <ion-item>
+        <ion-icon style="color:red;font-size:24pt" name="ios-bulb"></ion-icon>
+        <span class="small-message" style="color:red">This is your message of the day.</span>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+ 
+  <div class="spacer" style="width: 748px; height: 15px;"></div>
+  
+  <ion-card>
+      <ion-item-divider color="light"><h2>CLASS OF ROAD TEST</h2></ion-item-divider>
+      <ion-slides #testSlider (ionSlideDidChange)="slideChanged(this)" pager>
+        <ion-slide>
+          <img src="assets/imgs/class-1-slide.png">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/class-3-slide.png">
+        </ion-slide>
+        <ion-slide>
+            <img src="assets/imgs/class-2-slide.png">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/class-4U-slide.png">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/class-4-17-slide.png">
+        </ion-slide>
+      </ion-slides>
+  </ion-card>
+
+  <div class="spacer" style="width: 748px; height: 15px;"></div>
+  
+  <ion-card>
+  <ion-item-divider color="light"><h2>CLIENT DETAILS</h2></ion-item-divider>
+    <ion-list>
+      <form [formGroup]="sharedData.client">
+        <ion-item>
+          <ion-label floating>DL Number:</ion-label>
+          <ion-input formControlName="dlNumber"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Given Name:</ion-label>
+            <ion-input formControlName="givenName" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Surname:</ion-label>
+            <ion-input formControlName="surname" type="text"></ion-input>
+          </ion-item>
+        </form>
+    </ion-list>
+  </ion-card>
+
+  <div class="spacer" style="width: 748px; height: 15px;"></div>
+
+  <ion-card>
+    <ion-list>
+      <ion-item-divider color="light"><h2>EXAMINER DETAILS</h2></ion-item-divider>
+      <form [formGroup]="sharedData.examiner">
+          <ion-item>
+            <ion-label floating>Appt Time:</ion-label>
+            <ion-datetime formControlName="apptTime" displayFormat="h:mm A" pickerFormat="h mm A"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Unit / ESP School:</ion-label>
+            <ion-input formControlName="unit" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Route Number:</ion-label>
+            <ion-input formControlName="route" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Appt Date:</ion-label>
+            <ion-datetime formControlName="apptDate" displayFormat="MM/DD/YYYY"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Home Office:</ion-label>
+            <ion-input type="number" maxlength="5" formControlName="office"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label floating>DE Initials:</ion-label>
+              <ion-input formControlName="initials" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label style="padding-left: 10px">DE Signature</ion-label>
+              <button [hidden]="true" ion-button (click)="testOpenUrl()" item-right>Opener</button>
+              <button ion-button item-right icon-only clear class="comment-button" (click)="redrawBackground(null)">
+                  <ion-icon class="panel-button" name="md-backspace"></ion-icon>
+              </button>
+        </ion-item>
+      </form>
+      <canvas-draw background-img="assets/imgs/signature-pad.png" name="signature.png" pen-colour="dark" pen-size="1"></canvas-draw>
+       </ion-list>
+    </ion-card>
+
+    <div class="spacer" style="width: 748px; height: 15px;"></div>
+
+    <ion-card class="sub-header">
+      <ion-item class="item-trns" style="border: 0">
+        <h2 style="color: white;text-align: center;">Copyright &copy; ICBC 2018</h2>
+      </ion-item>
+    </ion-card>  
+    
+</ion-content>

@@ -1,0 +1,37 @@
+<!--
+  Generated template for the GraphicToolsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+</ion-header>
+
+
+<ion-content style="padding: 8px">
+  <ion-item-divider style="margin: 0">
+    BRUSH SIZE
+  </ion-item-divider>
+  <ion-list radio-group [(ngModel)]="sharedData.brushSize">
+    <ion-item>
+        <ion-label>2 <ion-icon style="font-size: 1.0em;" name="md-brush"></ion-icon></ion-label>
+        <ion-radio color="dark" value="2" icon-only (click)="setPenSize(2)"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>5 <ion-icon style="font-size: 1.5em;" name="md-brush"></ion-icon></ion-label>
+        <ion-radio color="dark" value="5" icon-only (click)="setPenSize(5)"><ion-icon style="font-size: 0.25em;" name="radio-button-on"></ion-icon></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>10 <ion-icon style="font-size: 2.0em;" name="md-brush"></ion-icon></ion-label>
+        <ion-radio color="dark" value="10" icon-only (click)="setPenSize(10)"><ion-icon style="font-size: 0.25em;" name="radio-button-on"></ion-icon></ion-radio>
+    </ion-item>
+  </ion-list>
+  <ion-item-divider>
+    PAINT COLOUR
+  </ion-item-divider>
+  <ion-list radio-group [(ngModel)]="sharedData.currentColour">
+    <ion-item *ngFor="let colour of availableColours">
+        <ion-label color="{{ colour }}"><ion-icon style="font-size: 2.0em" color="{{ colour }}" name="md-color-palette"></ion-icon> {{ colour }}</ion-label>
+        <ion-radio value="{{ colour }}" icon-only (click)="changeColour(colour)"></ion-radio>    </ion-item>
+  </ion-list>
+</ion-content>

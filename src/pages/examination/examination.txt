@@ -1,0 +1,63 @@
+{{ sharedData.client.get('givenName').value }} {{ sharedData.client.get('surname').value }} 
+{{ sharedData.examRevision }} {{ sharedData.licenseClass }} {{ sharedData.getTotalDemeritCount() }} 
+
+Examination
+LIVE LOCATION FEED
+ Lat: {{ position.latitude }}
+Lon: {{ position.longitude }}
+Alt: {{ position.altitude }}
+Accuracy: {{ position.accuracy }}
+
+         This is your message of the day.
+
+INFRACTION SUMMARY
+LEFT TURN {{ sharedData.getDemeritCount(sharedData.leftTurn) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+RIGHT TURN {{ sharedData.getDemeritCount(sharedData.rightTurn) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+ROAD POSITION {{ sharedData.getDemeritCount(sharedData.roadPosition) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+SPEED {{ sharedData.getDemeritCount(sharedData.speed) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+BACKING {{ sharedData.getDemeritCount(sharedData.backing) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+SHIFTING {{ sharedData.getDemeritCount(sharedData.shifting) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+RIGHT OF WAY {{ sharedData.getDemeritCount(sharedData.rightOfWay) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+UNCOUPLING {{ sharedData.getDemeritCount(sharedData.uncoupling) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+COUPLING {{ sharedData.getDemeritCount(sharedData.coupling) }} 
+Item Time Demerit 
+{{ item.value }} {{ item.time | date: 'mediumTime' }} {{ item.demerits }} Points Delete
+Comments:
+
+
+EXAM RESULTS
+Qualified: Yes No Discontinued Dangerous Action: Traffic Violation: Other (specify): 
+
+Copyright © ICBC 2018
