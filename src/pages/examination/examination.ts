@@ -764,17 +764,14 @@ export class ExaminationPage {
   }
 
   formatDemeritMessage(demeritObject) {
-    let dt = demeritObject.time.toString();
+    let dt = new Date(demeritObject.time).toISOString(); 
     let date: any = ''; 
     let time: any = '';
-    let idx = dt.indexOf('GMT');
+    let dateArray = dt.split('T');
 
-    if (idx != -1) {
-      date = dt.substring(0, idx - 9);
-      time = dt.substring(idx-9, idx)
-    } else {
-      date = "undefined";
-    }
+    debugger;
+    date = dateArray[0];
+    time = dateArray[1].substring(0, 8);
 
     let message = 
       '<table>' +
@@ -835,7 +832,6 @@ export class ExaminationPage {
       });
 
       marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-        debugger;
         var htmlInfoWindow = new HtmlInfoWindow();
         let msg = this.formatDemeritMessage(demeritData);
         htmlInfoWindow.setContent(

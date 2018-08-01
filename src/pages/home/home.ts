@@ -114,6 +114,9 @@ export class HomePage {
     this.sharedData.licenseClass = exam.licenseClass; 
 
     this.sharedData.client.setValue(exam.client);
+
+    // Extract date portion of ISO 8601 date
+    exam.examiner.apptDate = exam.examiner.apptDate.split('T', 1)[0];
     this.sharedData.examiner.setValue(exam.examiner);
     this.sharedData.results.setValue(exam.results);
 
