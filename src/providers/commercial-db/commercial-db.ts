@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
+import PouchdbFind from 'pouchdb-find';
 import { ShareProvider } from '../share/share';
 import { NavController } from 'ionic-angular';
+import { HTTP } from '@ionic-native/http';
 
 /*
   Generated class for the CommercialDbProvider provider.
@@ -19,12 +21,16 @@ export class CommercialDbProvider {
   sharedData: ShareProvider;
   navCtrl: NavController;
   canvasIndex: any = 0;
+  routeCoords: any[];
 
   constructor(
-    shareProvider: ShareProvider) {
+    shareProvider: ShareProvider,
+    public httpObj: HTTP
+  ) {
     this.db = new PouchDB('commercial-db');
     this.remote = "https://1801a103-f342-4909-8289-42b1f4c948fa-bluemix.cloudant.com/commercial-db";
     this.sharedData = shareProvider;
+    PouchDB.plugin(PouchdbFind);
 
     let options = {
       live: true,
@@ -46,19 +52,21 @@ export class CommercialDbProvider {
         include_docs: true
       }).then((result) => {
         this.data = [];
-   
+    
         let docs = result.rows.map((row) => {
-          this.data.push(row.doc);
+          // Include only exam records in data, not routes, messages etc.
+          if (row.doc.type == 'exam') {
+            this.data.push(row.doc);
+          }
         });
-   
+    
         resolve(this.data);
-   
+    
         this.db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
           this.handleChange(change);
-        });
-   
-      })
-      .catch (e => this.sharedData.presentBasicAlert("Error", e));
+      });
+    })
+    .catch (e => this.sharedData.presentBasicAlert("Error", e));
 
     });
   }
@@ -216,5 +224,46 @@ export class CommercialDbProvider {
       this.db.remove(exam).catch((err) => {
         console.log(err);
       });
+  }
+
+  extractRouteCoords(geoJsonContent) {
+
+    let arrayCoords = geoJsonContent.features[0].geometry.coordinates;
+    let objCoords = [];
+    for (let idx=0; idx < arrayCoords.length; idx++) {
+      objCoords.push({ lat: arrayCoords[idx][1], lng: arrayCoords[idx][0] });
+    }
+    return objCoords;
+  }
+
+  loadExamRouteCoords(routeNbr) {
+  
+    this.db.find({
+      attachments: true,
+      selector: {
+        _id: routeNbr
+      }
+    }).then((res) => {
+      let geo = [];
+      let routeAttachment = res.docs[0].route;
+      let me = this;
+      this.db.getAttachment(routeNbr, routeAttachment)
+      .then((blob) => {
+        var reader = new FileReader();
+        reader.onload = function() {
+          debugger;
+          geo = JSON.parse(reader.result);
+          me.routeCoords = me.extractRouteCoords(geo);
+        }
+        reader.readAsText(blob);
+      })
+      .catch ((err) => {
+          this.sharedData.presentBasicAlert("Error", "Unable to read route " + routeAttachment + ", " + err)
+      });
+
+      console.log("Result = " + res);
+    }).catch((err) => { 
+      console.log('Error getting Route1')
+    });
   }
 }

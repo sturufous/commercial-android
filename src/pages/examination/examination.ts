@@ -1,5 +1,5 @@
 import { Component, ViewChildren, ViewChild, ApplicationRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, Content, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { ShareProvider } from '../../providers/share/share';
 //import { Geolocation } from '@ionic-native/geolocation';
@@ -15,7 +15,10 @@ import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, HtmlInfoWindo
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+
+})
 @Component({
   selector: 'page-examination',
   templateUrl: 'examination.html',
@@ -26,6 +29,10 @@ export class ExaminationPage {
   @ViewChild(Content) content: Content;
   
   coords = [{"lat":48.4237177,"lng":-123.3680865},{"lat":48.4242613,"lng":-123.3680264},{"lat":48.4236136,"lng":-123.3680262},{"lat":48.4229232,"lng":-123.3687865},{"lat":48.423518,"lng":-123.3680469},{"lat":48.4235309,"lng":-123.3680584},{"lat":48.4234996,"lng":-123.367864},{"lat":48.4234134,"lng":-123.3679486},{"lat":48.4234784,"lng":-123.367642},{"lat":48.4234734,"lng":-123.3676063},{"lat":48.4234678,"lng":-123.3675603},{"lat":48.4234714,"lng":-123.3674573},{"lat":48.4234551,"lng":-123.3675247},{"lat":48.4234602,"lng":-123.3675046},{"lat":48.4233403,"lng":-123.3674852},{"lat":48.4232749,"lng":-123.3674793},{"lat":48.4232726,"lng":-123.3674764},{"lat":48.4232703,"lng":-123.3674801},{"lat":48.423278,"lng":-123.3674764},{"lat":48.4232629,"lng":-123.3674765},{"lat":48.4232444,"lng":-123.3674457},{"lat":48.4232409,"lng":-123.3674616},{"lat":48.4232455,"lng":-123.367465},{"lat":48.4232426,"lng":-123.3674608},{"lat":48.4232396,"lng":-123.3674682},{"lat":48.4232384,"lng":-123.36747},{"lat":48.4232912,"lng":-123.36746},{"lat":48.4232546,"lng":-123.3674692},{"lat":48.423248,"lng":-123.367465},{"lat":48.4232387,"lng":-123.3674711},{"lat":48.4232343,"lng":-123.3674724},{"lat":48.4232454,"lng":-123.3674684},{"lat":48.4232454,"lng":-123.3674707},{"lat":48.4232539,"lng":-123.3674839},{"lat":48.4232315,"lng":-123.3674774},{"lat":48.4232343,"lng":-123.3674719},{"lat":48.4232345,"lng":-123.3674774},{"lat":48.4232622,"lng":-123.3674721},{"lat":48.4232354,"lng":-123.3674748},{"lat":48.4232608,"lng":-123.3674832},{"lat":48.4232758,"lng":-123.3674689},{"lat":48.4232547,"lng":-123.3674738},{"lat":48.4232405,"lng":-123.3674755},{"lat":48.423237,"lng":-123.3674754},{"lat":48.4232334,"lng":-123.3674779},{"lat":48.423234,"lng":-123.3674768},{"lat":48.4232382,"lng":-123.3674805},{"lat":48.4232364,"lng":-123.36748},{"lat":48.4232507,"lng":-123.3674797},{"lat":48.4232434,"lng":-123.3674785},{"lat":48.4232499,"lng":-123.367476},{"lat":48.4232452,"lng":-123.3674759},{"lat":48.4232382,"lng":-123.367468},{"lat":48.4232264,"lng":-123.3674789},{"lat":48.4232444,"lng":-123.3674697},{"lat":48.4232582,"lng":-123.367479},{"lat":48.4232532,"lng":-123.3674848},{"lat":48.4232241,"lng":-123.3674895},{"lat":48.4232519,"lng":-123.3674824},{"lat":48.42331,"lng":-123.3674698}];
+  polygon = [{lat:48.4235771, lng:-123.3680742}, {lat:48.4233983, lng:-123.3659377}, {lat:48.4246523, lng:-123.3655065}, {lat:48.4251042, lng:-123.3677577}];
+  //testPoint = {lat:48.4243055, lng: -123.3671958};
+  testPoint = {lat:48.423828, lng: -123.3688};
+
   subscription;
   position: any = {
     latitude: '0',
@@ -49,6 +56,7 @@ export class ExaminationPage {
   public dbProvider: CommercialDbProvider;
   public map: GoogleMap;
   public line: Polyline = null;
+  public routeGuide: Polyline = null;
 
   VICTORIA_BC = {"lat": 48.4238642, "lng": -123.36846639};
 
@@ -62,8 +70,18 @@ export class ExaminationPage {
     strokeOpacity: 1.0
   };
 
+  routeGuideOptions: PolylineOptions = {
+    points: [],
+    color: 'red',
+    width: 10,
+    geodesic: true,
+    zoom: true,
+    visible: true,
+    strokeOpacity: 0.7
+  };
+
   private bgGeo: any;
-  heartbeatFlag: boolean = false;
+  heartbeatFlag: boolean = false; // Prevents capture of lat/lng on heartbeat
 
   accuratePos: any = {
     latitude: 0,
@@ -113,7 +131,7 @@ export class ExaminationPage {
         console.log('- setOdometer Error: ', e);
       });
 
-      // Set timer to get current location every five seconds
+      // Set timer to get current location on heartbeat every five seconds
       setInterval(() => {
         this.heartbeatFlag = true;
         this.bgGeo.getCurrentPosition().then(location => {
@@ -126,7 +144,45 @@ export class ExaminationPage {
     })
   }
 
+  pointInPolygon(point, polyCorners) {
+
+    let i = 0; 
+    let j = polyCorners.length - 1;
+    let oddNodes = false;
+  
+    for (i=0; i < polyCorners.length; i++) {
+      if (polyCorners[i].lat < point.lat && polyCorners[j].lat >= point.lat
+      ||  polyCorners[j].lat < point.lat && polyCorners[i].lat >= point.lat) {
+        if (polyCorners[i].lng + (point.lat - polyCorners[i].lat)/(polyCorners[j].lat - polyCorners[i].lat) * (polyCorners[j].lng - polyCorners[i].lng) < point.lng) {
+          oddNodes=!oddNodes; }
+      }
+      j=i; 
+    }
+  
+    return oddNodes; 
+  }
+  
   onLocation(position, taskId) {
+
+    // Set camera to initial location
+    if (!this.sharedData.routeWasLoaded) {
+      this.map.moveCamera({ 
+        target: {lat: position.coords.latitude, lng: position.coords.longitude },
+        zoom: 18,
+        tilt: 30
+      });
+    }
+
+    // Draw the route guide if not already drawn
+    debugger;
+    if (!this.sharedData.routeGuideDrawn) {
+      if (this.dbProvider.routeCoords.length > 0) {
+        this.routeGuideOptions.points = this.dbProvider.routeCoords;
+        this.routeGuide = this.map.addPolylineSync(this.routeGuideOptions);
+        this.sharedData.routeGuideDrawn = true;
+      }
+    }
+
     console.log('- location: ' + position + ', taskid = ' + taskId);
     this.accuratePos.latitude = position.coords.latitude != null ? position.coords.latitude : '0';
     this.accuratePos.longitude = position.coords.longitude != null ? position.coords.longitude : '0';
@@ -143,9 +199,9 @@ export class ExaminationPage {
     this.position.altitude = this.position.altitude.toString().substr(0, 9);
     this.position.accuracy = this.position.accuracy.toString().substr(0, 9);
 
-    if (position.coords.speed > 1.2) {
+    /*if (position.coords.speed > 1.2) {
       this.sharedData.presentBasicAlert("Notice:", "You're going faster than 1M per second");
-    }
+    }*/
 
     // Don't store points for every heartbeat or if route was loaded from the db
     if (!this.sharedData.routeWasLoaded && !this.heartbeatFlag) { 
@@ -769,7 +825,6 @@ export class ExaminationPage {
     let time: any = '';
     let dateArray = dt.split('T');
 
-    debugger;
     date = dateArray[0];
     time = dateArray[1].substring(0, 8);
 
@@ -912,13 +967,15 @@ export class ExaminationPage {
     for (let canvasIdx=0; canvasIdx < this.commentArray.length; canvasIdx++) {
       this.commentArray[canvasIdx].drawBackground();
     }
+
+    //debugger;
+    //this.pointInPolygon(this.testPoint, this.polygon);
   }
 
   ionViewDidEnter() {
+    this.dbProvider.loadExamRouteCoords('Route1');
     this.sharedData.examinationPage = this;
     this.sharedData.readExamAttachments(this.dbProvider);
-    //this.options.points = this.coords;
-    //this.line = this.map.addPolylineSync(this.options);
 
     if (!this.sharedData.routeWasLoaded) {
       this.map.clear();

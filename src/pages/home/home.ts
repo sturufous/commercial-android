@@ -36,6 +36,7 @@ export class HomePage {
 
   newExam() {
     let examTemplate = {
+      type: 'exam',
       licenseClass: '', 
       client: null, 
       examiner: null,

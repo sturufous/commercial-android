@@ -39,6 +39,7 @@ export class ShareProvider {
     attachments: any = [];
     signatureImg: any;
     showMaps: any = true;
+    currentRouteGeo: any;
 
     gpsData: any = [];
     gpsView: any = 'Blank';
@@ -67,6 +68,7 @@ export class ShareProvider {
     currentExam = {
         _id: null,
         _rev: null,
+        type: 'exam',
         licenseClass: null,
         client: null,
         examiner: null,
@@ -150,6 +152,7 @@ export class ShareProvider {
     examinationPage: any = null;
     comments = ['','','','','','','','',''];
     routeWasLoaded: any = false;
+    routeGuideDrawn: any = false;
 
     constructor(toastControl: ToastController,
         formBuilder: FormBuilder,
@@ -290,6 +293,43 @@ export class ShareProvider {
             console.log("Can't find attachment: " + e);
             canvasArray[0].drawBackground(null);
           }) 
+    }
+
+    /*
+    {
+        "_id": "Route1",
+        "_rev": "2-9ae25e438383ad377f4b76c1dfb41607",
+        "name": "Route1",
+        "route": "route1.geojson",
+        "speed_zones": {
+          "zones": {
+            "30": "route1_30kmh.geojson",
+            "40": "route1_40kmh.geojson",
+            "50": "route1_50kmh.geojson"
+          }
+        },
+        "_attachments": {
+          "route1.geojson": {
+            "content_type": "application/octet-stream",
+            "revpos": 2,
+            "digest": "md5-qh1CdpB/6GUWKICqzvP7LQ==",
+            "length": 712,
+            "stub": true
+          }
+        }
+      } */
+
+    readCurrentRoute(dbProvider) {
+        let canvasArray = this.detailsPage.signaturePad.toArray();
+        console.log("Route being read: " + this.currentExam._id);
+        dbProvider.db.getAttachment('Route1', 'route1.geojson')
+        .then((blob) => {
+          let url = URL.createObjectURL(blob);
+          this.currentRouteGeo = url;
+        })
+        .catch (e => {
+            console.log("Can't find attachment: " + e);
+        }) 
     }
   
     readExamAttachments(dbProvider) {

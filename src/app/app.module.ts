@@ -17,6 +17,7 @@ import { FileOpener } from '@ionic-native/file-opener';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { ComponentsModule } from '../components/components.module';
+import { HTTP } from '@ionic-native/http'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { ComponentsModule } from '../components/components.module';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      preloadModules: true
+    }),
     HttpModule,
     TextMaskModule,
     ComponentsModule
@@ -42,7 +45,8 @@ import { ComponentsModule } from '../components/components.module';
     CommercialDbProvider,
     FileOpener,
     InAppBrowser,
-    GoogleMaps
+    GoogleMaps,
+    HTTP
   ]
 })
 export class AppModule {}
