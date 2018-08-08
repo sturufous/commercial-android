@@ -6,7 +6,7 @@ import { ShareProvider } from '../../providers/share/share';
 import { CommercialDbProvider } from '../../providers/commercial-db/commercial-db';
 import { ActionSheetController } from 'ionic-angular';
 import { CanvasDrawComponent } from '../../components/canvas-draw/canvas-draw';
-import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, HtmlInfoWindow, Marker, Polyline, PolylineOptions } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, HtmlInfoWindow, Marker, Polyline, PolylineOptions, ILatLng } from '@ionic-native/google-maps';
 
 /**
  * Generated class for the ExaminationPage page.
@@ -70,14 +70,19 @@ export class ExaminationPage {
     strokeOpacity: 1.0
   };
 
+  lineSymbol = {
+    path: 'M 0,-1 0,1',
+    strokeOpacity: 1,
+    scale: 4
+  };
+
   routeGuideOptions: PolylineOptions = {
     points: [],
-    color: 'red',
+    color: '#9354f2',
     width: 10,
     geodesic: true,
     zoom: true,
-    visible: true,
-    strokeOpacity: 0.7
+    strokeOpacity: 0
   };
 
   private bgGeo: any;
@@ -165,22 +170,10 @@ export class ExaminationPage {
   onLocation(position, taskId) {
 
     // Set camera to initial location
-    if (!this.sharedData.routeWasLoaded) {
+    if (this.sharedData.trackingIsOn) {
       this.map.moveCamera({ 
-        target: {lat: position.coords.latitude, lng: position.coords.longitude },
-        zoom: 18,
-        tilt: 30
+        target: {lat: position.coords.latitude, lng: position.coords.longitude }
       });
-    }
-
-    // Draw the route guide if not already drawn
-    debugger;
-    if (!this.sharedData.routeGuideDrawn) {
-      if (this.dbProvider.routeCoords.length > 0) {
-        this.routeGuideOptions.points = this.dbProvider.routeCoords;
-        this.routeGuide = this.map.addPolylineSync(this.routeGuideOptions);
-        this.sharedData.routeGuideDrawn = true;
-      }
     }
 
     console.log('- location: ' + position + ', taskid = ' + taskId);
@@ -973,13 +966,19 @@ export class ExaminationPage {
   }
 
   ionViewDidEnter() {
-    this.dbProvider.loadExamRouteCoords('Route1');
+    this.map.clear();
     this.sharedData.examinationPage = this;
     this.sharedData.readExamAttachments(this.dbProvider);
+    this.sharedData.drawingToggle = false;
 
     if (!this.sharedData.routeWasLoaded) {
-      this.map.clear();
-      this.line = this.map.addPolylineSync(this.options);
+      // My first promise implementation, so excited it solved my async problems!
+      this.dbProvider.loadExamRouteCoords(this.sharedData.examiner.getRawValue().route)
+      .then((routeCoords) => {
+        this.routeGuideOptions.points = <ILatLng[]>routeCoords;
+        this.routeGuide = this.map.addPolylineSync(this.routeGuideOptions);
+        this.line = this.map.addPolylineSync(this.options);
+      })
     } else {
         this.map.clear();
         this.line = this.map.addPolylineSync(this.options);
@@ -1126,5 +1125,15 @@ export class ExaminationPage {
       ]
     });
     gpsView.present();
+  }
+
+  toggleTracking() {
+    this.sharedData.trackingIsOn = !this.sharedData.trackingIsOn;
+  }
+
+  moveCameraToCurrentLoc() {
+    this.map.moveCamera({ 
+      target: {lat: this.position.latitude, lng: this.position.longitude }
+    })
   }
 }

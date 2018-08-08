@@ -117,7 +117,7 @@ export class HomePage {
     this.sharedData.client.setValue(exam.client);
 
     // Extract date portion of ISO 8601 date
-    exam.examiner.apptDate = exam.examiner.apptDate.split('T', 1)[0];
+    //exam.examiner.apptDate = exam.examiner.apptDate.split('T', 1)[0];
     this.sharedData.examiner.setValue(exam.examiner);
     this.sharedData.results.setValue(exam.results);
 
@@ -152,6 +152,11 @@ export class HomePage {
     this.navCtrl.parent.select(1);
   }
 
+  ionViewDidLoad() {
+
+    // Possible asyc issue, but probably not
+    this.dbProvider.loadRouteNames();
+  }
 
   ionViewDidEnter() {
     this.splashScreen.hide();

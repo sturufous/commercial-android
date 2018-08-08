@@ -51,7 +51,7 @@
       <ion-item-sliding [hidden]="item.results.qualified != 'Yes'">
         <ion-item style="border-bottom: 1px solid #CCC;" (click)="openExam(item)">
           <ion-icon name="md-checkmark-circle"></ion-icon>
-          {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumTime' }} 
+          {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumDate' }} {{ item.examiner.apptTime }}
         </ion-item>
         <ion-item-options side="right">
           <button ion-button color="danger" (click)="deleteExam(item)">
@@ -62,7 +62,7 @@
       <ion-item-sliding [hidden]="item.results.qualified != 'No'">
         <ion-item style="border-bottom: 1px solid #CCC;" (click)="openExam(item)">
             <ion-icon name="md-close-circle"></ion-icon>
-            {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumTime' }} 
+            {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumDate' }} {{ item.examiner.apptTime }}
         </ion-item>
         <ion-item-options side="right">
           <button ion-button color="danger" (click)="deleteExam(item)">
@@ -73,7 +73,7 @@
       <ion-item-sliding [hidden]="item.results.qualified != 'Discontinued'">
         <ion-item style="border-bottom: 1px solid #CCC;" (click)="openExam(item)">
             <ion-icon name="md-help-circle"></ion-icon>
-            {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumTime' }} 
+            {{ item.client.givenName }} {{ item.client.surname }}, {{ item.examiner.apptDate | date: 'mediumDate' }} {{ item.examiner.apptTime }}
         </ion-item>
         <ion-item-options side="right">
           <button ion-button color="danger" (click)="deleteExam(item)">

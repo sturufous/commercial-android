@@ -21,7 +21,6 @@ export class CommercialDbProvider {
   sharedData: ShareProvider;
   navCtrl: NavController;
   canvasIndex: any = 0;
-  routeCoords: any[];
 
   constructor(
     shareProvider: ShareProvider,
@@ -78,34 +77,34 @@ export class CommercialDbProvider {
     let changedDoc = null;
     let changedIndex = null;
    
-    this.data.forEach((doc, index) => {
-   
-      if (doc._id === change.id) {
-        changedDoc = doc;
-        changedIndex = index;
+    if (typeof change.type != 'undefined' && change.type == 'exam') {
+      this.data.forEach((doc, index) => {
+    
+        if (doc._id === change.id) {
+          changedDoc = doc;
+          changedIndex = index;
+        }
+      });
+    
+      //A document was deleted
+      if (change.deleted) {
+        this.data.splice(changedIndex, 1);
+        console.log("A document was deleted " + changedIndex + " = " + JSON.stringify(this.data));
       }
-   
-    });
-   
-    //A document was deleted
-    if (change.deleted) {
-      this.data.splice(changedIndex, 1);
-      console.log("A document was deleted " + changedIndex + " = " + JSON.stringify(this.data));
-    }
-    else {
-   
-      //A document was updated
-      if (changedDoc) {
-        console.log("A document was updated " + changedIndex)
-        this.data[changedIndex] = change.doc;
-      }
-   
-      //A document was added
       else {
-        console.log("A document was added " + changedIndex)
-        this.data.push(change.doc);
+    
+        //A document was updated
+        if (changedDoc) {
+          console.log("A document was updated " + changedIndex)
+          this.data[changedIndex] = change.doc;
+        }
+    
+        //A document was added
+        else {
+          console.log("A document was added " + changedIndex)
+          this.data.push(change.doc);
+        }
       }
-   
     }
   }
 
@@ -237,33 +236,51 @@ export class CommercialDbProvider {
   }
 
   loadExamRouteCoords(routeNbr) {
+
+    let me = this;
   
+    return new Promise(resolve => {
+      this.db.find({
+        attachments: true,
+        selector: {
+          _id: routeNbr
+        }
+      }).then((res) => {
+        let geo = [];
+        let routeAttachment = res.docs[0].route;
+        this.db.getAttachment(routeNbr, routeAttachment)
+        .then((blob) => {
+          var reader = new FileReader();
+          reader.onload = () => {
+            geo = JSON.parse(reader.result);
+            let routeCoords = me.extractRouteCoords(geo);
+            resolve(routeCoords);
+          }
+          reader.readAsText(blob);
+        })
+        .catch ((err) => {
+            this.sharedData.presentBasicAlert("Error", "Unable to read route " + routeAttachment + ", " + err)
+        });
+
+        console.log("Result = " + res);
+      }).catch((err) => { 
+        console.log('Error getting Route1')
+      });
+    })
+  }
+
+  loadRouteNames() {
+
     this.db.find({
       attachments: true,
       selector: {
-        _id: routeNbr
+        _id: 'routes'
       }
     }).then((res) => {
-      let geo = [];
-      let routeAttachment = res.docs[0].route;
-      let me = this;
-      this.db.getAttachment(routeNbr, routeAttachment)
-      .then((blob) => {
-        var reader = new FileReader();
-        reader.onload = function() {
-          debugger;
-          geo = JSON.parse(reader.result);
-          me.routeCoords = me.extractRouteCoords(geo);
-        }
-        reader.readAsText(blob);
-      })
-      .catch ((err) => {
-          this.sharedData.presentBasicAlert("Error", "Unable to read route " + routeAttachment + ", " + err)
-      });
-
-      console.log("Result = " + res);
-    }).catch((err) => { 
-      console.log('Error getting Route1')
+      this.sharedData.routes = res.docs[0].routeList;
+    })
+    .catch ((err) => {
+        this.sharedData.presentBasicAlert("Error", "Unable to read route list, " + err)
     });
   }
 }

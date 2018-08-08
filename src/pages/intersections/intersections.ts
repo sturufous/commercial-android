@@ -37,11 +37,11 @@ export class IntersectionsPage {
 
   ionViewDidLoad() {
     this.slider.lockSwipeToNext(false);
-    this.sharedData.drawingToggle = true;
   }
 
   ionViewDidEnter() {
     this.drawerers = this.canvasDrawerers.toArray();
+    this.sharedData.drawingToggle = true;
   }
 
   lockSlider(lock) {

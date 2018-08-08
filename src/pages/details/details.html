@@ -119,7 +119,9 @@
           </ion-item>
           <ion-item>
             <ion-label floating>Route Number:</ion-label>
-            <ion-input formControlName="route" type="text"></ion-input>
+            <ion-select formControlName="route">
+              <ion-option *ngFor="let route of sharedData.routes" value="{{route}}">{{ route }}</ion-option>
+            </ion-select>
           </ion-item>
           <ion-item>
             <ion-label floating>Appt Date:</ion-label>

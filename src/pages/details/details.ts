@@ -88,6 +88,7 @@ export class DetailsPage {
 
     // Initialize all canvas elements to blank backgrounds
     let canvasList = this.sharedData.detailsCanvas.toArray();
+    this.sharedData.drawingToggle = false;
     
     for (let canvasIdx=0; canvasIdx < canvasList.length; canvasIdx++) {
       canvasList[canvasIdx].drawBackground();

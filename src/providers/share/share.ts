@@ -24,6 +24,8 @@ export class ShareProvider {
     uncoupling: any = {infractions: [], notes:''};
     coupling: any = {infractions: [], notes:''};
 
+    routes: any = ['Route1','Route2'];
+
     examLoadedFromDB: any = null;
     client: FormGroup;
     examiner: FormGroup;
@@ -153,6 +155,7 @@ export class ShareProvider {
     comments = ['','','','','','','','',''];
     routeWasLoaded: any = false;
     routeGuideDrawn: any = false;
+    trackingIsOn: Boolean = false;
 
     constructor(toastControl: ToastController,
         formBuilder: FormBuilder,
@@ -170,7 +173,7 @@ export class ShareProvider {
         this.examiner = formBuilder.group({
             apptTime: ['', Validators.compose([Validators.required])],
             unit: ['', Validators.compose([Validators.maxLength(10), Validators.required])],
-            route: ['', Validators.compose([Validators.maxLength(10), Validators.required])],
+            route: [''],
             apptDate: ['', Validators.compose([Validators.required])],
             office: ['', Validators.compose([Validators.required])],
             initials: ['', Validators.compose([Validators.maxLength(3), Validators.required])]
