@@ -90,10 +90,10 @@
                   </ion-row>
                   <ion-row>
                       <ion-col style="padding:0">
-                        Activity:
+                        Speed Limit:
                       </ion-col>
                       <ion-col style="padding:0">
-                           {{ position.activity }}
+                           {{ position.speedLimit }}
                       </ion-col> 
                       <ion-col style="padding:0">
                         Odometer:
@@ -108,17 +108,17 @@
           </ion-grid>
       </ion-item>
 
-      <div [hidden]="!sharedData.showMaps" style="height: 400px;background-color: transparent !important" id="map_canvas">
+      <div [hidden]="!sharedData.showMaps" style="height: 500px;background-color: transparent !important" id="map_canvas">
       </div>
       <ion-item [hidden]="true">
         <textarea style="width:100%; height:300px" [(ngModel)]="gpsView">
         </textarea>
       </ion-item>
-      <ion-item>
+      <ion-item [hidden]="sharedData.routeWasLoaded || !sharedData.showMaps">
         <ion-grid>
           <ion-row>
-           <ion-col col-4><button ion-button full><ion-icon name="map" color="light" style="font-size: 18pt"></ion-icon>Route</button></ion-col>
-           <ion-col col-4><button ion-button full><ion-icon name="pin" color="light" style="font-size: 18pt"></ion-icon>Current</button></ion-col>
+           <ion-col col-4><button ion-button full (click)="moveCameraToCurrentLoc()"><ion-icon name="pin" color="light" style="font-size: 18pt"></ion-icon>Current</button></ion-col>
+           <ion-col col-4><button ion-button full (click)="moveCameraToCurrentRoute()"><ion-icon name="map" color="light" style="font-size: 18pt"></ion-icon>Route</button></ion-col>
            <ion-col col-4>
              <button [hidden]="sharedData.trackingIsOn" ion-button full (click)="toggleTracking()"><ion-icon name="globe" color="light" style="font-size: 18pt"></ion-icon>Track</button>
              <button [hidden]="!sharedData.trackingIsOn" ion-button full (click)="toggleTracking()"><ion-icon name="globe" color="light" style="font-size: 18pt"></ion-icon>Stop</button></ion-col>

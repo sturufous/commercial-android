@@ -7,6 +7,7 @@ import { CommercialDbProvider } from '../../providers/commercial-db/commercial-d
 import { ActionSheetController } from 'ionic-angular';
 import { CanvasDrawComponent } from '../../components/canvas-draw/canvas-draw';
 import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, HtmlInfoWindow, Marker, Polyline, PolylineOptions, ILatLng } from '@ionic-native/google-maps';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 /**
  * Generated class for the ExaminationPage page.
@@ -43,6 +44,7 @@ export class ExaminationPage {
     speed: '0',
     heading: '0',
     activity: '0',
+    speedLimit: '?',
     odometer: '0'
   }
 
@@ -57,6 +59,8 @@ export class ExaminationPage {
   public map: GoogleMap;
   public line: Polyline = null;
   public routeGuide: Polyline = null;
+  currentLoc: Marker;
+  routeSpeedZones: any = null;
 
   VICTORIA_BC = {"lat": 48.4238642, "lng": -123.36846639};
 
@@ -100,7 +104,8 @@ export class ExaminationPage {
               shareProvider: ShareProvider,
               dbProvider: CommercialDbProvider,
               public platform: Platform,
-              public applicationRef: ApplicationRef
+              public applicationRef: ApplicationRef,
+              public tts: TextToSpeech
             ) {
     this.alertCtrl = alertCtrl;
     this.sharedData = shareProvider;
@@ -121,7 +126,7 @@ export class ExaminationPage {
 
     // 3. Configure it.
     this.bgGeo.configure({
-      debug: true,
+      debug: false,
       desiredAccuracy: 0,
       distanceFilter: 1,
       autoSync: true,
@@ -169,12 +174,36 @@ export class ExaminationPage {
   
   onLocation(position, taskId) {
 
+    let currentLoc = {lat: position.coords.latitude, lng: position.coords.longitude };
+    let inThisZone = false;
+
     // Set camera to initial location
     if (this.sharedData.trackingIsOn) {
       this.map.moveCamera({ 
-        target: {lat: position.coords.latitude, lng: position.coords.longitude }
+        target: currentLoc
       });
     }
+
+    this.position.speedLimit = '?';
+      debugger;
+    if (typeof this.routeSpeedZones != 'undefined') {
+      for (let zoneIdx=0; zoneIdx < this.routeSpeedZones.length; zoneIdx++) {
+        inThisZone = this.pointInPolygon(currentLoc, this.routeSpeedZones[zoneIdx].polyCorners);
+        if (inThisZone) {
+          this.position.speedLimit = this.routeSpeedZones[zoneIdx].speed;
+          break;
+        }
+      }
+    }
+
+    if (this.position.speedLimit != '?' && (this.position.speed > this.position.speedLimit)) {
+      this.tts.speak('Slow down')
+      .then(() => console.log('Said slow down'))
+      .catch((reason: any) => console.log(reason));
+    }
+
+    // Move current location marker to new position
+    this.currentLoc.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
 
     console.log('- location: ' + position + ', taskid = ' + taskId);
     this.accuratePos.latitude = position.coords.latitude != null ? position.coords.latitude : '0';
@@ -829,6 +858,7 @@ export class ExaminationPage {
       '<tr><td>Latitude:&nbsp;</td><td>' + demeritObject.latitude + '</td></tr>' +
       '<tr><td>Longitude:&nbsp;</td><td>' + demeritObject.longitude + '</td></tr>' +
       '<tr><td>Altitude:&nbsp;</td><td>' + demeritObject.altitude + '</td></tr>' +
+      '<tr><td>Odometer:&nbsp;</td><td>' + demeritObject.odometer + '</td></tr>' +
       '<tr><td>Speed:&nbsp;</td><td>' + demeritObject.speed + '</td></tr>' +
       '</table>';
 
@@ -861,6 +891,7 @@ export class ExaminationPage {
         latitude: this.accuratePos.latitude,
         longitude: this.accuratePos.longitude,
         altitude: this.position.altitude,
+        odometer: this.position.odometer,
         speed: this.position.speed
       };
 
@@ -904,6 +935,7 @@ export class ExaminationPage {
         latitude: this.accuratePos.latitude, 
         longitude: this.accuratePos.longitude,
         altitude: this.position.altitude,
+        odometer: this.position.odometer,
         speed: this.position.speed
       }
     } 
@@ -971,14 +1003,54 @@ export class ExaminationPage {
     this.sharedData.readExamAttachments(this.dbProvider);
     this.sharedData.drawingToggle = false;
 
-    if (!this.sharedData.routeWasLoaded) {
+    if (!this.sharedData.routeWasLoaded) { // Actual exam route already saved
       // My first promise implementation, so excited it solved my async problems!
-      this.dbProvider.loadExamRouteCoords(this.sharedData.examiner.getRawValue().route)
-      .then((routeCoords) => {
-        this.routeGuideOptions.points = <ILatLng[]>routeCoords;
-        this.routeGuide = this.map.addPolylineSync(this.routeGuideOptions);
-        this.line = this.map.addPolylineSync(this.options);
-      })
+      let route = this.sharedData.examiner.getRawValue().route;
+
+      if (route != '') {
+        this.dbProvider.loadExamRouteCoords(route)
+        .then((routeCoords) => {
+          this.routeGuideOptions.points = <ILatLng[]>routeCoords;
+          this.routeGuide = this.map.addPolylineSync(this.routeGuideOptions);
+
+          this.line = this.map.addPolylineSync(this.options);
+
+          let marker: Marker = this.map.addMarkerSync({
+            icon: {
+              url: 'assets/imgs/' + this.sharedData.examiner.getRawValue().route + '.png',
+              size: {
+                width: 85,
+                height: 32
+              }
+            },
+            animation: 'DROP',
+            position: {
+              lat: routeCoords[0].lat,
+              lng: routeCoords[0].lng
+            }
+          });
+    
+          this.currentLoc = this.map.addMarkerSync({
+            icon: {
+              url: 'assets/imgs/current-loc.png',
+              size: {
+                width: 25,
+                height: 25
+              }
+            },
+            animation: 'DROP',
+            position: {
+              lat: this.position.latitude,
+              lng: this.position.longitude
+            }
+          });
+        })
+      }
+
+      this.dbProvider.loadRouteSpeedZones(route)
+      .then((speedZones) => {
+        this.routeSpeedZones = speedZones;
+      });
     } else {
         this.map.clear();
         this.line = this.map.addPolylineSync(this.options);
@@ -1135,5 +1207,16 @@ export class ExaminationPage {
     this.map.moveCamera({ 
       target: {lat: this.position.latitude, lng: this.position.longitude }
     })
+  }
+
+  moveCameraToCurrentRoute() {
+    let routeName = this.sharedData.examiner.getRawValue().route;
+    if ( routeName == '') {
+      this.sharedData.presentBasicAlert("Error", "Please select a route");
+    } else {
+      this.map.moveCamera({ 
+        target: {lat: this.routeGuideOptions.points[0].lat, lng: this.routeGuideOptions.points[0].lng }
+      });
+    }
   }
 }

@@ -65,7 +65,7 @@ export class HomePage {
         apptDate: new Date(), 
         apptTime: '12:30',
         unit: '345',
-        route: '4',
+        route: '',
         office: '12345',
         initials: 'SM'
     }; 

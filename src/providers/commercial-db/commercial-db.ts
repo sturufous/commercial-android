@@ -238,7 +238,7 @@ export class CommercialDbProvider {
   loadExamRouteCoords(routeNbr) {
 
     let me = this;
-  
+    
     return new Promise(resolve => {
       this.db.find({
         attachments: true,
@@ -265,6 +265,59 @@ export class CommercialDbProvider {
         console.log("Result = " + res);
       }).catch((err) => { 
         console.log('Error getting Route1')
+      });
+    })
+  }
+
+  extractSpeedZoneCoords(geoJsonContent) {
+
+    let features = geoJsonContent.features;
+    let polyCorners = [];
+    let speedZones = [];
+
+    for(let featureIdx=0; featureIdx < features.length; featureIdx++) {
+      let speed = features[featureIdx].properties.speed;
+      let pointList = features[featureIdx].geometry.coordinates[0];
+      for (let pointIdx=0; pointIdx < pointList.length; pointIdx++) {
+        polyCorners.push({ lat: pointList[pointIdx][1], lng: pointList[pointIdx][0] });
+      }
+      speedZones.push({ 
+        "speed": speed,
+        "polyCorners": polyCorners,
+      });
+      polyCorners = [];
+    }
+
+    return speedZones;
+  }
+
+  loadRouteSpeedZones(routeNbr) {
+    let me = this;
+    
+    return new Promise(resolve => {
+      this.db.find({
+        attachments: true,
+        selector: {
+          _id: routeNbr
+        }
+      }).then((res) => {
+        let geo = [];
+        let zonesAttachment = res.docs[0].speed_zones;
+        this.db.getAttachment(routeNbr, zonesAttachment)
+        .then((blob) => {
+          var reader = new FileReader();
+          reader.onload = () => {
+            geo = JSON.parse(reader.result);
+            let zoneCoords = me.extractSpeedZoneCoords(geo);
+            resolve(zoneCoords);
+          }
+          reader.readAsText(blob);
+        })
+        .catch ((err) => {
+            this.sharedData.presentBasicAlert("Error", "Unable to read speed zones " + zonesAttachment + ", " + err)
+        });
+      }).catch((err) => { 
+        console.log('Error getting' + routeNbr)
       });
     })
   }
