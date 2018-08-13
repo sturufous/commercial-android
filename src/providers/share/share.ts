@@ -24,7 +24,7 @@ export class ShareProvider {
     uncoupling: any = {infractions: [], notes:''};
     coupling: any = {infractions: [], notes:''};
 
-    routes: any = ['Route1','Route2'];
+    routes: any = ['Route1','Route2','Route3'];
 
     examLoadedFromDB: any = null;
     client: FormGroup;

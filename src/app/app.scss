@@ -16,8 +16,8 @@
 // automatically applied to the <body> element in the app.
 @import url('https://fonts.googleapis.com/css?family=Righteous');
 
-$SIDEMENU_TOP: #35cb66;
-$SIDEMENU_BOTTOM: #dff4e2;
+$SIDEMENU_TOP: #1b8dd6;
+$SIDEMENU_BOTTOM: #ccd6dc;
 $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 
 .body-text {
@@ -34,10 +34,10 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 }
 
 .side-menu-gradient {
-    background: -webkit-linear-gradient(to left, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    background: -o-linear-gradient(to left, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    background: -moz-linear-gradient(to left, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    background: linear-gradient(to left, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -webkit-linear-gradient(to left bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(to left bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(to left bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient(to left bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
 }
 
 .side-menu-item {

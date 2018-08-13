@@ -1,4 +1,4 @@
-import { Component, ViewChildren, ViewChild, ApplicationRef } from '@angular/core';
+import { Component, ViewChildren, ViewChild, ApplicationRef, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, Content, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { ShareProvider } from '../../providers/share/share';
@@ -28,6 +28,8 @@ export class ExaminationPage {
 
   @ViewChildren(CanvasDrawComponent) canvases;
   @ViewChild(Content) content: Content;
+  @ViewChild('speed') speedLimitSign: ElementRef;
+  @ViewChild('speedlimit') speedLimitText: ElementRef;
   
   coords = [{"lat":48.4237177,"lng":-123.3680865},{"lat":48.4242613,"lng":-123.3680264},{"lat":48.4236136,"lng":-123.3680262},{"lat":48.4229232,"lng":-123.3687865},{"lat":48.423518,"lng":-123.3680469},{"lat":48.4235309,"lng":-123.3680584},{"lat":48.4234996,"lng":-123.367864},{"lat":48.4234134,"lng":-123.3679486},{"lat":48.4234784,"lng":-123.367642},{"lat":48.4234734,"lng":-123.3676063},{"lat":48.4234678,"lng":-123.3675603},{"lat":48.4234714,"lng":-123.3674573},{"lat":48.4234551,"lng":-123.3675247},{"lat":48.4234602,"lng":-123.3675046},{"lat":48.4233403,"lng":-123.3674852},{"lat":48.4232749,"lng":-123.3674793},{"lat":48.4232726,"lng":-123.3674764},{"lat":48.4232703,"lng":-123.3674801},{"lat":48.423278,"lng":-123.3674764},{"lat":48.4232629,"lng":-123.3674765},{"lat":48.4232444,"lng":-123.3674457},{"lat":48.4232409,"lng":-123.3674616},{"lat":48.4232455,"lng":-123.367465},{"lat":48.4232426,"lng":-123.3674608},{"lat":48.4232396,"lng":-123.3674682},{"lat":48.4232384,"lng":-123.36747},{"lat":48.4232912,"lng":-123.36746},{"lat":48.4232546,"lng":-123.3674692},{"lat":48.423248,"lng":-123.367465},{"lat":48.4232387,"lng":-123.3674711},{"lat":48.4232343,"lng":-123.3674724},{"lat":48.4232454,"lng":-123.3674684},{"lat":48.4232454,"lng":-123.3674707},{"lat":48.4232539,"lng":-123.3674839},{"lat":48.4232315,"lng":-123.3674774},{"lat":48.4232343,"lng":-123.3674719},{"lat":48.4232345,"lng":-123.3674774},{"lat":48.4232622,"lng":-123.3674721},{"lat":48.4232354,"lng":-123.3674748},{"lat":48.4232608,"lng":-123.3674832},{"lat":48.4232758,"lng":-123.3674689},{"lat":48.4232547,"lng":-123.3674738},{"lat":48.4232405,"lng":-123.3674755},{"lat":48.423237,"lng":-123.3674754},{"lat":48.4232334,"lng":-123.3674779},{"lat":48.423234,"lng":-123.3674768},{"lat":48.4232382,"lng":-123.3674805},{"lat":48.4232364,"lng":-123.36748},{"lat":48.4232507,"lng":-123.3674797},{"lat":48.4232434,"lng":-123.3674785},{"lat":48.4232499,"lng":-123.367476},{"lat":48.4232452,"lng":-123.3674759},{"lat":48.4232382,"lng":-123.367468},{"lat":48.4232264,"lng":-123.3674789},{"lat":48.4232444,"lng":-123.3674697},{"lat":48.4232582,"lng":-123.367479},{"lat":48.4232532,"lng":-123.3674848},{"lat":48.4232241,"lng":-123.3674895},{"lat":48.4232519,"lng":-123.3674824},{"lat":48.42331,"lng":-123.3674698}];
   polygon = [{lat:48.4235771, lng:-123.3680742}, {lat:48.4233983, lng:-123.3659377}, {lat:48.4246523, lng:-123.3655065}, {lat:48.4251042, lng:-123.3677577}];
@@ -184,9 +186,9 @@ export class ExaminationPage {
       });
     }
 
+    // Check to see if we are in a speed zone. If we are, set the speed limit
     this.position.speedLimit = '?';
-      debugger;
-    if (typeof this.routeSpeedZones != 'undefined') {
+    if (typeof this.routeSpeedZones != 'undefined' && this.routeSpeedZones !== null) {
       for (let zoneIdx=0; zoneIdx < this.routeSpeedZones.length; zoneIdx++) {
         inThisZone = this.pointInPolygon(currentLoc, this.routeSpeedZones[zoneIdx].polyCorners);
         if (inThisZone) {
@@ -196,10 +198,10 @@ export class ExaminationPage {
       }
     }
 
-    if (this.position.speedLimit != '?' && (this.position.speed > this.position.speedLimit)) {
-      this.tts.speak('Slow down')
-      .then(() => console.log('Said slow down'))
-      .catch((reason: any) => console.log(reason));
+    if (this.position.speedLimit != '?') {
+      this.speedLimitSign.nativeElement.src = 'assets/imgs/' + this.position.speedLimit + '0kmh.png';
+    } else {
+      this.speedLimitSign.nativeElement.src = '';
     }
 
     // Move current location marker to new position
@@ -221,9 +223,23 @@ export class ExaminationPage {
     this.position.altitude = this.position.altitude.toString().substr(0, 9);
     this.position.accuracy = this.position.accuracy.toString().substr(0, 9);
 
-    /*if (position.coords.speed > 1.2) {
-      this.sharedData.presentBasicAlert("Notice:", "You're going faster than 1M per second");
-    }*/
+    if (this.position.speedLimit != '?') {
+      if (this.position.speed > this.position.speedLimit) {
+        this.speedLimitText.nativeElement.style.color = 'red';
+        this.speedLimitText.nativeElement.style.fontWeight = 'bold';
+        this.applicationRef.tick(); // Ensure display updates immediately
+    
+        this.tts.speak('Slow down')
+        .then(() => console.log('Said slow down'))
+        .catch((reason: any) => console.log(reason));
+      } else {
+        this.speedLimitText.nativeElement.style.color = 'black';
+        this.speedLimitText.nativeElement.style.fontWeight = 'normal';
+      }
+    } else {
+      this.speedLimitText.nativeElement.style.color = 'black';
+      this.speedLimitText.nativeElement.style.fontWeight = 'normal';
+    }
 
     // Don't store points for every heartbeat or if route was loaded from the db
     if (!this.sharedData.routeWasLoaded && !this.heartbeatFlag) { 
@@ -240,11 +256,6 @@ export class ExaminationPage {
 
   onMotionChange(isMoving, location, taskId) {
     console.log('- motionchange: ', isMoving, location);
-    if (location.is_moving) {
-      this.position.speed = location.speed;
-    } else {
-      this.position.speed = 0;
-    }
     this.bgGeo.finish(taskId);
   }
 

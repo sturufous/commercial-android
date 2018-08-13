@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 @Component({
   templateUrl: 'app.html'
 })
+
+
 export class MyApp {
+
+  @ViewChild(Nav) nav: Nav;
   rootPage: any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
@@ -17,5 +21,10 @@ export class MyApp {
       statusBar.styleDefault();
     })
     .catch((e) => console.log("Error on platform ready"));
+  }
+
+  openPage(p) {
+    console.log("Open Page: " + p);
+    this.nav.push(p);
   }
 }
