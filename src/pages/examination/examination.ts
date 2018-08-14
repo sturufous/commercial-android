@@ -224,14 +224,17 @@ export class ExaminationPage {
     this.position.accuracy = this.position.accuracy.toString().substr(0, 9);
 
     if (this.position.speedLimit != '?') {
-      if (this.position.speed > this.position.speedLimit) {
+      let speedThreshold = eval(this.position.speedLimit + " + " + this.sharedData.userProfile.speedMargin);
+      if (this.position.speed > speedThreshold) {
         this.speedLimitText.nativeElement.style.color = 'red';
         this.speedLimitText.nativeElement.style.fontWeight = 'bold';
         this.applicationRef.tick(); // Ensure display updates immediately
     
-        this.tts.speak('Slow down')
-        .then(() => console.log('Said slow down'))
-        .catch((reason: any) => console.log(reason));
+        if (this.sharedData.userProfile.soundNotifications) {
+          this.tts.speak('Slow down')
+          .then(() => console.log('Said slow down'))
+          .catch((reason: any) => console.log(reason));
+        }
       } else {
         this.speedLimitText.nativeElement.style.color = 'black';
         this.speedLimitText.nativeElement.style.fontWeight = 'normal';

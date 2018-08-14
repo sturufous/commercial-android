@@ -17,8 +17,9 @@
 @import url('https://fonts.googleapis.com/css?family=Righteous');
 
 $SIDEMENU_TOP: #1b8dd6;
-$SIDEMENU_BOTTOM: #ccd6dc;
+$SIDEMENU_BOTTOM: white;
 $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
+$SIDEMENU_TRANSPARENT: rgba(0, 0, 0, 0);
 
 .body-text {
     font-size: 10pt;
@@ -34,29 +35,10 @@ $SIDEMENU_TRANSPARENCY: rgba(255, 255, 255, 0.4);
 }
 
 .side-menu-gradient {
-    background: -webkit-linear-gradient(to left bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    background: -o-linear-gradient(to left bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    background: -moz-linear-gradient(to left bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-    background: linear-gradient(to left bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
-}
-
-.side-menu-item {
-    background: none;
-    color: black;
-    font-weight: 500;
-    border-top: 1px solid #FFF;
-    border-bottom: 0px;
-    .item-content {
-        background: none;
-        &.activated {
-            background: $SIDEMENU_TRANSPARENCY;
-        }
-    }
-    &.active-page-highlight {
-        .item-content {
-            background: $SIDEMENU_TRANSPARENCY;
-        }
-    }
+    background: -webkit-linear-gradient(to bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(to bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(to bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient(to bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
 }
 
 .profile-image {
@@ -262,3 +244,29 @@ ion-title {
     margin-right: 0;
 }
 
+.menu-profile-text {
+    font-size: 16pt;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.menu-options {
+    font-size: 14pt;
+    color: #333;
+    border-top: 1px solid #EEE !important;
+    padding-left: 10px;
+}
+
+.menu-icon {
+    font-size: 12pt;
+    color: #333;
+}
+
+.activeHighlight {
+    background-color: $SIDEMENU_TRANSPARENCY;
+}
+
+.inactiveHighlight {
+    background-color: $SIDEMENU_TRANSPARENT;
+}

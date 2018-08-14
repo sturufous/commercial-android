@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ShareProvider } from '../../providers/share/share';
 
 /**
- * Generated class for the HelpPage page.
+ * Generated class for the ProfilePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,10 +11,10 @@ import { ShareProvider } from '../../providers/share/share';
 
 @IonicPage()
 @Component({
-  selector: 'page-help',
-  templateUrl: 'help.html',
+  selector: 'page-profile',
+  templateUrl: 'profile.html',
 })
-export class HelpPage {
+export class ProfilePage {
 
   constructor(
     public navCtrl: NavController, 
@@ -23,7 +23,7 @@ export class HelpPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HelpPage');
+    console.log('ionViewDidLoad ProfilePage');
   }
 
   ionViewDidLeave() {

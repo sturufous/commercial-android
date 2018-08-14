@@ -149,6 +149,15 @@ export class ShareProvider {
         steeringComponents: false
     }
 
+    userProfile = {
+        id: 'xy5t',
+        firsName: 'Stuart',
+        lastName: 'Morse',
+        soundNotifications: false,
+        speedMargin: 6,
+        updateInterval: 5
+    }
+
     licenseClass: any = '1';
     detailsPage: any = null;
     examinationPage: any = null;
@@ -156,6 +165,7 @@ export class ShareProvider {
     routeWasLoaded: any = false;
     routeGuideDrawn: any = false;
     trackingIsOn: Boolean = false;
+    activeMenuPage: any = '';
 
     constructor(toastControl: ToastController,
         formBuilder: FormBuilder,
