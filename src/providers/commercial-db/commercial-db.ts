@@ -70,6 +70,31 @@ export class CommercialDbProvider {
     });
   }
 
+  getDocById(key) {
+    let me = this;
+  
+    return new Promise(resolve => {
+      this.db.find({
+        selector: {
+          _id: key
+        }
+      }).then((res) => {
+        resolve(res);
+      }).catch((err) => { 
+        console.log('Error getting user profile')
+      });
+    })
+  }
+
+  getProfile(userId) {
+
+    return this.getDocById(userId);
+  }
+    
+  getRoutes() {
+    return this.getDocById("routes");
+  }
+
   handleChange(change) {
 
     console.log("Entering handleChange(): " + JSON.stringify(change));
@@ -184,6 +209,14 @@ export class CommercialDbProvider {
     .catch (e => this.sharedData.presentBasicAlert("Error", e));
   }
 
+  updateUserProfile() {
+    this.db.put(this.sharedData.userProfile).then((response) => {
+      this.sharedData.presentToast("User profile saved successfully.");
+      this.sharedData.userProfile._rev = response.rev;
+    })
+    .catch (e => this.sharedData.presentBasicAlert("Error", e));
+  }
+
   saveCanvasAttachments(canvasList) {
     //let currentCanvas = canvasList[this.canvasIndex];
     if (this.canvasIndex < canvasList.length) {
@@ -246,13 +279,12 @@ export class CommercialDbProvider {
           _id: routeNbr
         }
       }).then((res) => {
-        let geo = [];
         let routeAttachment = res.docs[0].route;
         this.db.getAttachment(routeNbr, routeAttachment)
         .then((blob) => {
           var reader = new FileReader();
           reader.onload = () => {
-            geo = JSON.parse(reader.result);
+            let geo: any[] = JSON.parse(reader.result);
             let routeCoords = me.extractRouteCoords(geo);
             resolve(routeCoords);
           }

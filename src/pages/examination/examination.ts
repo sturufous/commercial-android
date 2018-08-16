@@ -2,11 +2,10 @@ import { Component, ViewChildren, ViewChild, ApplicationRef, ElementRef } from '
 import { IonicPage, NavController, NavParams, Platform, Content, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { ShareProvider } from '../../providers/share/share';
-//import { Geolocation } from '@ionic-native/geolocation';
 import { CommercialDbProvider } from '../../providers/commercial-db/commercial-db';
 import { ActionSheetController } from 'ionic-angular';
 import { CanvasDrawComponent } from '../../components/canvas-draw/canvas-draw';
-import { GoogleMaps, GoogleMap, GoogleMapOptions, GoogleMapsEvent, HtmlInfoWindow, Marker, Polyline, PolylineOptions, ILatLng } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, VisibleRegion, GoogleMapOptions, GoogleMapsEvent, HtmlInfoWindow, Marker, Polyline, PolylineOptions, ILatLng } from '@ionic-native/google-maps';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 /**
@@ -31,10 +30,10 @@ export class ExaminationPage {
   @ViewChild('speed') speedLimitSign: ElementRef;
   @ViewChild('speedlimit') speedLimitText: ElementRef;
   
-  coords = [{"lat":48.4237177,"lng":-123.3680865},{"lat":48.4242613,"lng":-123.3680264},{"lat":48.4236136,"lng":-123.3680262},{"lat":48.4229232,"lng":-123.3687865},{"lat":48.423518,"lng":-123.3680469},{"lat":48.4235309,"lng":-123.3680584},{"lat":48.4234996,"lng":-123.367864},{"lat":48.4234134,"lng":-123.3679486},{"lat":48.4234784,"lng":-123.367642},{"lat":48.4234734,"lng":-123.3676063},{"lat":48.4234678,"lng":-123.3675603},{"lat":48.4234714,"lng":-123.3674573},{"lat":48.4234551,"lng":-123.3675247},{"lat":48.4234602,"lng":-123.3675046},{"lat":48.4233403,"lng":-123.3674852},{"lat":48.4232749,"lng":-123.3674793},{"lat":48.4232726,"lng":-123.3674764},{"lat":48.4232703,"lng":-123.3674801},{"lat":48.423278,"lng":-123.3674764},{"lat":48.4232629,"lng":-123.3674765},{"lat":48.4232444,"lng":-123.3674457},{"lat":48.4232409,"lng":-123.3674616},{"lat":48.4232455,"lng":-123.367465},{"lat":48.4232426,"lng":-123.3674608},{"lat":48.4232396,"lng":-123.3674682},{"lat":48.4232384,"lng":-123.36747},{"lat":48.4232912,"lng":-123.36746},{"lat":48.4232546,"lng":-123.3674692},{"lat":48.423248,"lng":-123.367465},{"lat":48.4232387,"lng":-123.3674711},{"lat":48.4232343,"lng":-123.3674724},{"lat":48.4232454,"lng":-123.3674684},{"lat":48.4232454,"lng":-123.3674707},{"lat":48.4232539,"lng":-123.3674839},{"lat":48.4232315,"lng":-123.3674774},{"lat":48.4232343,"lng":-123.3674719},{"lat":48.4232345,"lng":-123.3674774},{"lat":48.4232622,"lng":-123.3674721},{"lat":48.4232354,"lng":-123.3674748},{"lat":48.4232608,"lng":-123.3674832},{"lat":48.4232758,"lng":-123.3674689},{"lat":48.4232547,"lng":-123.3674738},{"lat":48.4232405,"lng":-123.3674755},{"lat":48.423237,"lng":-123.3674754},{"lat":48.4232334,"lng":-123.3674779},{"lat":48.423234,"lng":-123.3674768},{"lat":48.4232382,"lng":-123.3674805},{"lat":48.4232364,"lng":-123.36748},{"lat":48.4232507,"lng":-123.3674797},{"lat":48.4232434,"lng":-123.3674785},{"lat":48.4232499,"lng":-123.367476},{"lat":48.4232452,"lng":-123.3674759},{"lat":48.4232382,"lng":-123.367468},{"lat":48.4232264,"lng":-123.3674789},{"lat":48.4232444,"lng":-123.3674697},{"lat":48.4232582,"lng":-123.367479},{"lat":48.4232532,"lng":-123.3674848},{"lat":48.4232241,"lng":-123.3674895},{"lat":48.4232519,"lng":-123.3674824},{"lat":48.42331,"lng":-123.3674698}];
-  polygon = [{lat:48.4235771, lng:-123.3680742}, {lat:48.4233983, lng:-123.3659377}, {lat:48.4246523, lng:-123.3655065}, {lat:48.4251042, lng:-123.3677577}];
+  //coords = [{"lat":48.4237177,"lng":-123.3680865},{"lat":48.4242613,"lng":-123.3680264},{"lat":48.4236136,"lng":-123.3680262},{"lat":48.4229232,"lng":-123.3687865},{"lat":48.423518,"lng":-123.3680469},{"lat":48.4235309,"lng":-123.3680584},{"lat":48.4234996,"lng":-123.367864},{"lat":48.4234134,"lng":-123.3679486},{"lat":48.4234784,"lng":-123.367642},{"lat":48.4234734,"lng":-123.3676063},{"lat":48.4234678,"lng":-123.3675603},{"lat":48.4234714,"lng":-123.3674573},{"lat":48.4234551,"lng":-123.3675247},{"lat":48.4234602,"lng":-123.3675046},{"lat":48.4233403,"lng":-123.3674852},{"lat":48.4232749,"lng":-123.3674793},{"lat":48.4232726,"lng":-123.3674764},{"lat":48.4232703,"lng":-123.3674801},{"lat":48.423278,"lng":-123.3674764},{"lat":48.4232629,"lng":-123.3674765},{"lat":48.4232444,"lng":-123.3674457},{"lat":48.4232409,"lng":-123.3674616},{"lat":48.4232455,"lng":-123.367465},{"lat":48.4232426,"lng":-123.3674608},{"lat":48.4232396,"lng":-123.3674682},{"lat":48.4232384,"lng":-123.36747},{"lat":48.4232912,"lng":-123.36746},{"lat":48.4232546,"lng":-123.3674692},{"lat":48.423248,"lng":-123.367465},{"lat":48.4232387,"lng":-123.3674711},{"lat":48.4232343,"lng":-123.3674724},{"lat":48.4232454,"lng":-123.3674684},{"lat":48.4232454,"lng":-123.3674707},{"lat":48.4232539,"lng":-123.3674839},{"lat":48.4232315,"lng":-123.3674774},{"lat":48.4232343,"lng":-123.3674719},{"lat":48.4232345,"lng":-123.3674774},{"lat":48.4232622,"lng":-123.3674721},{"lat":48.4232354,"lng":-123.3674748},{"lat":48.4232608,"lng":-123.3674832},{"lat":48.4232758,"lng":-123.3674689},{"lat":48.4232547,"lng":-123.3674738},{"lat":48.4232405,"lng":-123.3674755},{"lat":48.423237,"lng":-123.3674754},{"lat":48.4232334,"lng":-123.3674779},{"lat":48.423234,"lng":-123.3674768},{"lat":48.4232382,"lng":-123.3674805},{"lat":48.4232364,"lng":-123.36748},{"lat":48.4232507,"lng":-123.3674797},{"lat":48.4232434,"lng":-123.3674785},{"lat":48.4232499,"lng":-123.367476},{"lat":48.4232452,"lng":-123.3674759},{"lat":48.4232382,"lng":-123.367468},{"lat":48.4232264,"lng":-123.3674789},{"lat":48.4232444,"lng":-123.3674697},{"lat":48.4232582,"lng":-123.367479},{"lat":48.4232532,"lng":-123.3674848},{"lat":48.4232241,"lng":-123.3674895},{"lat":48.4232519,"lng":-123.3674824},{"lat":48.42331,"lng":-123.3674698}];
+  //polygon = [{lat:48.4235771, lng:-123.3680742}, {lat:48.4233983, lng:-123.3659377}, {lat:48.4246523, lng:-123.3655065}, {lat:48.4251042, lng:-123.3677577}];
   //testPoint = {lat:48.4243055, lng: -123.3671958};
-  testPoint = {lat:48.423828, lng: -123.3688};
+  //testPoint = {lat:48.423828, lng: -123.3688};
 
   subscription;
   position: any = {
@@ -61,8 +60,12 @@ export class ExaminationPage {
   public map: GoogleMap;
   public line: Polyline = null;
   public routeGuide: Polyline = null;
+  public routeGuideVisible: boolean = true;
   currentLoc: Marker;
   routeSpeedZones: any = null;
+  speedZonePolygons: any[] = [];
+  speedZoneMarkers: any[] = [];
+  zonePolygonsVisible = false;
 
   VICTORIA_BC = {"lat": 48.4238642, "lng": -123.36846639};
 
@@ -128,7 +131,7 @@ export class ExaminationPage {
 
     // 3. Configure it.
     this.bgGeo.configure({
-      debug: false,
+      debug: this.sharedData.getGpsDebugFlag(),
       desiredAccuracy: 0,
       distanceFilter: 1,
       autoSync: true,
@@ -151,11 +154,12 @@ export class ExaminationPage {
         }).catch(error => {
           console.log('- location error: ', error);
         });
-      }, 5000);
+      }, this.sharedData.getUpdateInterval());
       this.bgGeo.start();
     })
   }
 
+  // Is the current location within the polygon described by polyCorners?
   pointInPolygon(point, polyCorners) {
 
     let i = 0; 
@@ -199,13 +203,15 @@ export class ExaminationPage {
     }
 
     if (this.position.speedLimit != '?') {
-      this.speedLimitSign.nativeElement.src = 'assets/imgs/' + this.position.speedLimit + '0kmh.png';
+      this.speedLimitSign.nativeElement.src = this.getSpeedZoneImageURL(this.position.speedLimit);
     } else {
-      this.speedLimitSign.nativeElement.src = '';
+      this.speedLimitSign.nativeElement.src = 'assets/imgs/xkmh.png';
     }
 
     // Move current location marker to new position
-    this.currentLoc.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+    if (!this.sharedData.routeWasLoaded) {
+      this.currentLoc.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+    }
 
     console.log('- location: ' + position + ', taskid = ' + taskId);
     this.accuratePos.latitude = position.coords.latitude != null ? position.coords.latitude : '0';
@@ -236,11 +242,11 @@ export class ExaminationPage {
           .catch((reason: any) => console.log(reason));
         }
       } else {
-        this.speedLimitText.nativeElement.style.color = 'black';
+        this.speedLimitText.nativeElement.style.color = '#6c6c6c';
         this.speedLimitText.nativeElement.style.fontWeight = 'normal';
       }
     } else {
-      this.speedLimitText.nativeElement.style.color = 'black';
+      this.speedLimitText.nativeElement.style.color = '#6c6c6c';
       this.speedLimitText.nativeElement.style.fontWeight = 'normal';
     }
 
@@ -283,6 +289,10 @@ export class ExaminationPage {
     return speed * 3.6;
   }
 
+  getSpeedZoneImageURL(speedLimit) {
+    return 'assets/imgs/' + speedLimit + '0kmh.png'
+  }
+
   deleteInfraction(infraction, infractions) {
     var index = this.indexByTime(infraction, infractions);
     if (index > -1) {
@@ -302,67 +312,71 @@ export class ExaminationPage {
   }
 
   presentLeftTurn() {
-    let alert = this.alertCtrl.create({
-      title: 'LEFT TURN',
-      inputs: [
-        {
-          name: 'steering',
-          type: 'radio',
-          label: 'Steering',
-          value: 'Steering#5',
-          checked: false
-        },
-        {
-          name: 'improper-turn',
-          type: 'radio',
-          label: 'Improper Turn - cut/wide/setup',
-          value: 'Improper Turn#10',
-          checked: false
-        },
-        {
-          name: 'wrong-lane',
-          type: 'radio',
-          label: 'Ends in wrong lane',
-          value: 'Wrong Lane#10',
-          checked: false
-        },
-        {
-          name: 'observation',
-          type: 'radio',
-          label: 'Observation before/during turn',
-          value: 'Observation#10',
-          checked: false
-        },
-        {
-          name: 'signal',
-          type: 'radio',
-          label: 'Signal - timing/no/cancel',
-          value: 'Signal#10',
-          checked: false
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'Ok',
-          handler: data => {
-            if (data != null) {
-              this.sharedData.leftTurn.infractions.push(this.getDemeritObject(data, this.sharedData.leftTurn, 'Left Turn', 'left-turn'));          
-              console.log("Left turn = " + JSON.stringify(this.sharedData.leftTurn));
-              return true;
-            }
+
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
+        title: 'LEFT TURN',
+        inputs: [
+          {
+            name: 'steering',
+            type: 'radio',
+            label: 'Steering',
+            value: 'Steering#5',
+            checked: false
           },
-          role: 'submit'
-        }
-      ]});
-    alert.present();
+          {
+            name: 'improper-turn',
+            type: 'radio',
+            label: 'Improper Turn - cut/wide/setup',
+            value: 'Improper Turn#10',
+            checked: false
+          },
+          {
+            name: 'wrong-lane',
+            type: 'radio',
+            label: 'Ends in wrong lane',
+            value: 'Wrong Lane#10',
+            checked: false
+          },
+          {
+            name: 'observation',
+            type: 'radio',
+            label: 'Observation before/during turn',
+            value: 'Observation#10',
+            checked: false
+          },
+          {
+            name: 'signal',
+            type: 'radio',
+            label: 'Signal - timing/no/cancel',
+            value: 'Signal#10',
+            checked: false
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+          },
+          {
+            text: 'Ok',
+            handler: data => {
+              if (data != null) {
+                this.sharedData.leftTurn.infractions.push(this.getDemeritObject(data, this.sharedData.leftTurn, 'Left Turn', 'left-turn'));          
+                console.log("Left turn = " + JSON.stringify(this.sharedData.leftTurn));
+                return true;
+              }
+            },
+            role: 'submit'
+          }
+        ]});
+      alert.present();
+    }
   }
 
   presentRightTurn() {
-    let alert = this.alertCtrl.create({
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
       title: 'RIGHT TURN',
       inputs: [
         {
@@ -418,11 +432,13 @@ export class ExaminationPage {
           role: 'submit'
         }
       ]});
-    alert.present();
+      alert.present();
+    }
   }
 
   presentRoadPosition() {
-    let alert = this.alertCtrl.create({
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
       title: 'ROAD POSITION',
       inputs: [
         {
@@ -513,11 +529,13 @@ export class ExaminationPage {
           role: 'submit'
         }
       ]});
-    alert.present();
+      alert.present();
+    }
   }
 
   presentSpeed() {
-    let alert = this.alertCtrl.create({
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
       title: 'SPEED',
       inputs: [
         {
@@ -587,11 +605,13 @@ export class ExaminationPage {
           role: 'submit'
         }
       ]});
-    alert.present();
+      alert.present();
+    }
   }
 
   presentBacking() {
-    let alert = this.alertCtrl.create({
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
       title: 'BACKING',
       inputs: [
         {
@@ -640,11 +660,13 @@ export class ExaminationPage {
           role: 'submit'
         }
       ]});
-    alert.present();
+      alert.present();
+    }
   }
 
   presentShifting() {
-    let alert = this.alertCtrl.create({
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
       title: 'SHIFTING',
       inputs: [
         {
@@ -693,11 +715,13 @@ export class ExaminationPage {
           role: 'submit'
         }
       ]});
-    alert.present();
+      alert.present();
+    }
   }
 
   presentRightOfWay() {
-    let alert = this.alertCtrl.create({
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
       title: 'RIGHT OF WAY',
       inputs: [
         {
@@ -746,11 +770,13 @@ export class ExaminationPage {
           role: 'submit'
         }
       ]});
-    alert.present();
+      alert.present();
+    }
   }
 
   presentUncoupling() {
-    let alert = this.alertCtrl.create({
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
       title: 'UNCOUPLING',
       inputs: [
         {
@@ -792,11 +818,13 @@ export class ExaminationPage {
           role: 'submit'
         }
       ]});
-    alert.present();
+      alert.present();
+    }
   }
 
   presentCoupling() {
-    let alert = this.alertCtrl.create({
+    if (!this.sharedData.routeWasLoaded) {
+      let alert = this.alertCtrl.create({
       title: 'COUPLING',
       inputs: [
         {
@@ -852,7 +880,8 @@ export class ExaminationPage {
           role: 'submit'
         }
       ]});
-    alert.present();
+      alert.present();
+    }
   }
 
   formatDemeritMessage(demeritObject) {
@@ -1006,9 +1035,54 @@ export class ExaminationPage {
     for (let canvasIdx=0; canvasIdx < this.commentArray.length; canvasIdx++) {
       this.commentArray[canvasIdx].drawBackground();
     }
+  }
 
-    //debugger;
-    //this.pointInPolygon(this.testPoint, this.polygon);
+  showPolygon() {
+
+    let currentPolygon: any = null;
+    let currentLimit: string = null;
+    let imgUrl: string = null;
+    
+    if (this.speedZonePolygons.length == 0) {
+      for (let zoneIdx=0; zoneIdx < this.routeSpeedZones.length; zoneIdx++) {
+        debugger;
+        currentPolygon = this.map.addPolygonSync({
+          'points': this.routeSpeedZones[zoneIdx].polyCorners,
+          'strokeColor' : 'red',
+          'strokeWidth': 2,
+          'fillColor': 'rgba(255, 0, 0, 0.3)'
+        });
+        this.speedZonePolygons.push(currentPolygon);
+
+        currentLimit = this.routeSpeedZones[zoneIdx].speed;
+        imgUrl = this.getSpeedZoneImageURL(currentLimit);
+
+        let marker: Marker = this.map.addMarkerSync({
+          icon: {
+            url: imgUrl,
+            size: {
+              width: 30,
+              height: 45
+            }
+          },
+          animation: 'DROP',
+          position: {
+            lat: this.routeSpeedZones[zoneIdx].polyCorners[0].lat,
+            lng: this.routeSpeedZones[zoneIdx].polyCorners[0].lng
+          }
+        }); 
+        
+        this.speedZoneMarkers.push(marker);
+      }
+    } else {
+
+      for (let zoneIdx=0; zoneIdx < this.speedZonePolygons.length; zoneIdx++){
+        this.speedZonePolygons[zoneIdx].setVisible(this.zonePolygonsVisible);
+        this.speedZoneMarkers[zoneIdx].setVisible(this.zonePolygonsVisible);
+      }
+      
+      this.zonePolygonsVisible = !this.zonePolygonsVisible;
+    }
   }
 
   ionViewDidEnter() {
@@ -1016,6 +1090,7 @@ export class ExaminationPage {
     this.sharedData.examinationPage = this;
     this.sharedData.readExamAttachments(this.dbProvider);
     this.sharedData.drawingToggle = false;
+    this.speedZonePolygons = [];
 
     if (!this.sharedData.routeWasLoaded) { // Actual exam route already saved
       // My first promise implementation, so excited it solved my async problems!
@@ -1122,6 +1197,11 @@ export class ExaminationPage {
         htmlInfoWindow.open(marker);
       });
     }
+  }
+
+  toggleRouteGuide() {
+    this.routeGuideVisible = !this.routeGuideVisible;
+    this.routeGuide.setVisible(this.routeGuideVisible);
   }
 
   clearComment(index) {

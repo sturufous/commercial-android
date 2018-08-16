@@ -7,7 +7,6 @@ import { ShareProvider } from '../providers/share/share';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TextMaskModule } from 'angular2-text-mask';
-import { Geolocation } from '@ionic-native/geolocation';
 import { CommercialDbProvider } from '../providers/commercial-db/commercial-db';
 import { FileOpener } from '@ionic-native/file-opener';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -36,7 +35,6 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
   ],
   providers: [
     StatusBar,
-    Geolocation,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ShareProvider,

@@ -99,7 +99,12 @@ export class DetailsPage {
     console.log('ionViewDidLoad DetailsPage');
   }
 
-  testOpenUrl() {
-    this.sharedData.testOpen(this.dbProvider);
+  ionViewDidLoad() {
+    
+    this.dbProvider.getRoutes().then((data) => {
+      let docs: any = data;
+      this.sharedData.routes = docs[0].routeList;
+    })
+    .catch((e) => console.log("Unable to get the routes from PouchDB"));
   }
 }

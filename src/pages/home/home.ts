@@ -6,6 +6,37 @@ import { Http } from '@angular/http';
 import { CommercialDbProvider } from '../../providers/commercial-db/commercial-db';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+export class UserProfile {
+  _id: string;
+  _rev: string;
+  type: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  soundNotifications: boolean;
+  speedMargin: number;
+  updateInterval: number;
+ 
+  constructor(
+  _id: string,
+  _rev: string,
+  firstName: string, 
+  lastName: string, 
+  soundNotification: boolean,
+  speedMargin: number,
+  updateInterval: number,
+  email: string) {
+    this._id = _id;
+    this._rev = _rev;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.soundNotifications = soundNotification;
+    this.speedMargin = speedMargin;
+    this.updateInterval = updateInterval;
+  }
+}
+
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -164,6 +195,12 @@ export class HomePage {
     this.dbProvider.getExams().then((data) => {
       this.exams = data;
     })
-    .catch((e) => console.log("Unable to get exams from PouchDB"));
+    .catch((e) => console.log("Unable to get exam records from PouchDB"));
+
+    this.dbProvider.getProfile("xy5t").then((data) => {
+      let profData: any = data;
+      this.sharedData.userProfile = profData.docs[0];
+    })
+    .catch((e) => console.log("Unable to get user profile from PouchDB"));
   }
 }

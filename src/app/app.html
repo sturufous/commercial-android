@@ -3,10 +3,10 @@
         <div class="spacer" style="width: 100%; height: 20px;"></div>
         <ion-list>
             <div class="profile-image">
-                <img src="assets/imgs/profile-pic.png" style="display: block; width: 50%; height: auto; margin-left: auto; margin-right: auto;">
+                <img src="assets/imgs/profile-pic.png" style="display: block; width: 40%; height: auto; margin-left: auto; margin-right: auto;">
             </div>
             <div class="menu-profile-text">
-                Stuart  Morse (XY5T)
+                {{ sharedData.getFirstName() }} {{ sharedData.getLastName() }} ({{ sharedData.getId() }})
             </div>
 
             <div class="spacer" style="width: 100%; height: 20px;"></div>

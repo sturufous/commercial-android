@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ShareProvider } from '../../providers/share/share';
+import { CommercialDbProvider } from '../../providers/commercial-db/commercial-db';
 
 /**
  * Generated class for the PreferencesPage page.
@@ -19,7 +20,8 @@ export class PreferencesPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public sharedData: ShareProvider) {
+    public sharedData: ShareProvider,
+    public commercialDb: CommercialDbProvider) {
   }
 
   ionViewDidLoad() {
@@ -28,5 +30,6 @@ export class PreferencesPage {
 
   ionViewDidLeave() {
     this.sharedData.activeMenuPage = '';
+    this.commercialDb.updateUserProfile();
   }
 }

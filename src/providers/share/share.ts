@@ -24,7 +24,7 @@ export class ShareProvider {
     uncoupling: any = {infractions: [], notes:''};
     coupling: any = {infractions: [], notes:''};
 
-    routes: any = ['Route1','Route2','Route3'];
+    routes: any = [];
 
     examLoadedFromDB: any = null;
     client: FormGroup;
@@ -149,14 +149,7 @@ export class ShareProvider {
         steeringComponents: false
     }
 
-    userProfile = {
-        id: 'xy5t',
-        firsName: 'Stuart',
-        lastName: 'Morse',
-        soundNotifications: false,
-        speedMargin: 6,
-        updateInterval: 5
-    }
+    userProfile;
 
     licenseClass: any = '1';
     detailsPage: any = null;
@@ -404,5 +397,38 @@ export class ShareProvider {
         .catch ((err) => {
             this.presentBasicAlert("Error", "Unable to delete comment " + commentArray[index].name + ", " + err)
         });
+    }
+
+    // Handles situation where side menu is accessed before user profile is loaded
+    getFirstName() {
+        return typeof this.userProfile != 'undefined' ? this.userProfile.firstName : '';
+    }
+
+    // Handles situation where side menu is accessed before user profile is loaded
+    getLastName() {
+        return typeof this.userProfile != 'undefined' ? this.userProfile.lastName : '';
+    }
+
+     // Handles situation where side menu is accessed before user profile is loaded
+     getId() {
+        return typeof this.userProfile != 'undefined' ? this.userProfile._id : '';
+    }
+
+    // Handles situation where side menu is accessed before user profile is loaded
+    getGpsDebugFlag() {
+        return typeof this.userProfile != 'undefined' ? this.userProfile.gpsDebugFlag : false;
+    }
+
+    // Handles situation where side menu is accessed before user profile is loaded
+    getUpdateInterval() {
+        let updateInterval = 0;
+
+        if (typeof this.userProfile != 'undefined') {
+            updateInterval = eval(this.userProfile.updateInterval + ' * ' + '1000');
+        } else {
+            updateInterval = 5000;
+        }
+
+        return updateInterval;
     }
 }

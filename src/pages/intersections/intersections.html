@@ -10,10 +10,13 @@
     <div class="header-title">
       <ion-title>Intersections</ion-title>
     </div>
-    <div style="float:right">
-      <button ion-button icon-only clear (click)="presentPopover($event)"><ion-icon name="more" style="font-size: 24pt"></ion-icon></button>
+    <div style="float: right">
+      <button ion-button icon-only clear menuToggle><ion-icon name="menu"></ion-icon></button>
     </div>
-    </ion-navbar>
+    <div style="float:right">
+      <button ion-button icon-only clear (click)="presentPopover($event)"><ion-icon name="brush"></ion-icon></button>
+    </div>
+  </ion-navbar>
 </ion-header>
      
 <ion-content>
