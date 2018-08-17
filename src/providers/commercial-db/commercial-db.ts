@@ -55,6 +55,7 @@ export class CommercialDbProvider {
         let docs = result.rows.map((row) => {
           // Include only exam records in data, not routes, messages etc.
           if (row.doc.type == 'exam') {
+            row.doc.id = row.id;
             this.data.push(row.doc);
           }
         });
@@ -98,37 +99,34 @@ export class CommercialDbProvider {
   handleChange(change) {
 
     console.log("Entering handleChange(): " + JSON.stringify(change));
-
     let changedDoc = null;
     let changedIndex = null;
    
-    if (typeof change.type != 'undefined' && change.type == 'exam') {
-      this.data.forEach((doc, index) => {
-    
-        if (doc._id === change.id) {
-          changedDoc = doc;
-          changedIndex = index;
-        }
-      });
-    
-      //A document was deleted
-      if (change.deleted) {
-        this.data.splice(changedIndex, 1);
-        console.log("A document was deleted " + changedIndex + " = " + JSON.stringify(this.data));
+    for (let docIdx = 0; docIdx < this.data.length; docIdx++) {
+  
+      if (this.data[docIdx].id === change.id) {
+        changedDoc = this.data[docIdx];
+        changedIndex = docIdx;
       }
+    };
+  
+    //A document was deleted
+    if (change.deleted) {
+      this.data.splice(changedIndex, 1);
+      console.log("A document was deleted " + changedIndex + " = " + JSON.stringify(this.data));
+    }
+    else {
+  
+      //A document was updated
+      if (changedDoc) {
+        console.log("A document was updated " + changedIndex)
+        this.data[changedIndex] = change.doc;
+      }
+  
+      //A document was added
       else {
-    
-        //A document was updated
-        if (changedDoc) {
-          console.log("A document was updated " + changedIndex)
-          this.data[changedIndex] = change.doc;
-        }
-    
-        //A document was added
-        else {
-          console.log("A document was added " + changedIndex)
-          this.data.push(change.doc);
-        }
+        console.log("A document was added " + changedIndex)
+        this.data.push(change.doc);
       }
     }
   }
@@ -253,10 +251,9 @@ export class CommercialDbProvider {
 }
     
   deleteExam(exam){
-    debugger;
-      this.db.remove(exam).catch((err) => {
-        console.log(err);
-      });
+    this.db.remove(exam).catch((err) => {
+      console.log(err);
+    });
   }
 
   extractRouteCoords(geoJsonContent) {
