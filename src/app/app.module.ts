@@ -14,6 +14,7 @@ import { GoogleMaps } from "@ionic-native/google-maps";
 import { ComponentsModule } from '../components/components.module';
 import { HTTP } from '@ionic-native/http';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
     InAppBrowser,
     GoogleMaps,
     HTTP,
-    TextToSpeech
+    TextToSpeech,
+    ScreenOrientation
   ]
 })
 export class AppModule {}

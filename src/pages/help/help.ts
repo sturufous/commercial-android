@@ -9,7 +9,9 @@ import { ShareProvider } from '../../providers/share/share';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  priority: "low"
+})
 @Component({
   selector: 'page-help',
   templateUrl: 'help.html',

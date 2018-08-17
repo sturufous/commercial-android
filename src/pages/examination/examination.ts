@@ -17,7 +17,6 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 @IonicPage({
   priority: 'high'
-
 })
 @Component({
   selector: 'page-examination',
@@ -30,11 +29,6 @@ export class ExaminationPage {
   @ViewChild('speed') speedLimitSign: ElementRef;
   @ViewChild('speedlimit') speedLimitText: ElementRef;
   
-  //coords = [{"lat":48.4237177,"lng":-123.3680865},{"lat":48.4242613,"lng":-123.3680264},{"lat":48.4236136,"lng":-123.3680262},{"lat":48.4229232,"lng":-123.3687865},{"lat":48.423518,"lng":-123.3680469},{"lat":48.4235309,"lng":-123.3680584},{"lat":48.4234996,"lng":-123.367864},{"lat":48.4234134,"lng":-123.3679486},{"lat":48.4234784,"lng":-123.367642},{"lat":48.4234734,"lng":-123.3676063},{"lat":48.4234678,"lng":-123.3675603},{"lat":48.4234714,"lng":-123.3674573},{"lat":48.4234551,"lng":-123.3675247},{"lat":48.4234602,"lng":-123.3675046},{"lat":48.4233403,"lng":-123.3674852},{"lat":48.4232749,"lng":-123.3674793},{"lat":48.4232726,"lng":-123.3674764},{"lat":48.4232703,"lng":-123.3674801},{"lat":48.423278,"lng":-123.3674764},{"lat":48.4232629,"lng":-123.3674765},{"lat":48.4232444,"lng":-123.3674457},{"lat":48.4232409,"lng":-123.3674616},{"lat":48.4232455,"lng":-123.367465},{"lat":48.4232426,"lng":-123.3674608},{"lat":48.4232396,"lng":-123.3674682},{"lat":48.4232384,"lng":-123.36747},{"lat":48.4232912,"lng":-123.36746},{"lat":48.4232546,"lng":-123.3674692},{"lat":48.423248,"lng":-123.367465},{"lat":48.4232387,"lng":-123.3674711},{"lat":48.4232343,"lng":-123.3674724},{"lat":48.4232454,"lng":-123.3674684},{"lat":48.4232454,"lng":-123.3674707},{"lat":48.4232539,"lng":-123.3674839},{"lat":48.4232315,"lng":-123.3674774},{"lat":48.4232343,"lng":-123.3674719},{"lat":48.4232345,"lng":-123.3674774},{"lat":48.4232622,"lng":-123.3674721},{"lat":48.4232354,"lng":-123.3674748},{"lat":48.4232608,"lng":-123.3674832},{"lat":48.4232758,"lng":-123.3674689},{"lat":48.4232547,"lng":-123.3674738},{"lat":48.4232405,"lng":-123.3674755},{"lat":48.423237,"lng":-123.3674754},{"lat":48.4232334,"lng":-123.3674779},{"lat":48.423234,"lng":-123.3674768},{"lat":48.4232382,"lng":-123.3674805},{"lat":48.4232364,"lng":-123.36748},{"lat":48.4232507,"lng":-123.3674797},{"lat":48.4232434,"lng":-123.3674785},{"lat":48.4232499,"lng":-123.367476},{"lat":48.4232452,"lng":-123.3674759},{"lat":48.4232382,"lng":-123.367468},{"lat":48.4232264,"lng":-123.3674789},{"lat":48.4232444,"lng":-123.3674697},{"lat":48.4232582,"lng":-123.367479},{"lat":48.4232532,"lng":-123.3674848},{"lat":48.4232241,"lng":-123.3674895},{"lat":48.4232519,"lng":-123.3674824},{"lat":48.42331,"lng":-123.3674698}];
-  //polygon = [{lat:48.4235771, lng:-123.3680742}, {lat:48.4233983, lng:-123.3659377}, {lat:48.4246523, lng:-123.3655065}, {lat:48.4251042, lng:-123.3677577}];
-  //testPoint = {lat:48.4243055, lng: -123.3671958};
-  //testPoint = {lat:48.423828, lng: -123.3688};
-
   subscription;
   position: any = {
     latitude: '0',
@@ -1045,7 +1039,6 @@ export class ExaminationPage {
     
     if (this.speedZonePolygons.length == 0) {
       for (let zoneIdx=0; zoneIdx < this.routeSpeedZones.length; zoneIdx++) {
-        debugger;
         currentPolygon = this.map.addPolygonSync({
           'points': this.routeSpeedZones[zoneIdx].polyCorners,
           'strokeColor' : 'red',
@@ -1057,6 +1050,8 @@ export class ExaminationPage {
         currentLimit = this.routeSpeedZones[zoneIdx].speed;
         imgUrl = this.getSpeedZoneImageURL(currentLimit);
 
+        let markerPos = this.compute2DPolygonCentroid(this.routeSpeedZones[zoneIdx].polyCorners);
+
         let marker: Marker = this.map.addMarkerSync({
           icon: {
             url: imgUrl,
@@ -1066,10 +1061,7 @@ export class ExaminationPage {
             }
           },
           animation: 'DROP',
-          position: {
-            lat: this.routeSpeedZones[zoneIdx].polyCorners[0].lat,
-            lng: this.routeSpeedZones[zoneIdx].polyCorners[0].lng
-          }
+          position: markerPos
         }); 
         
         this.speedZoneMarkers.push(marker);
@@ -1091,6 +1083,7 @@ export class ExaminationPage {
     this.sharedData.readExamAttachments(this.dbProvider);
     this.sharedData.drawingToggle = false;
     this.speedZonePolygons = [];
+    this.speedZoneMarkers = [];
 
     if (!this.sharedData.routeWasLoaded) { // Actual exam route already saved
       // My first promise implementation, so excited it solved my async problems!
@@ -1232,67 +1225,6 @@ export class ExaminationPage {
     JSON.stringify(this.sharedData.gpsData);
   }
 
-  showGpsData() {
-    console.log("In showGpsData()")
-    const gpsView = this.actionSheet.create({
-      title: 'Location Snapshot',
-      cssClass: 'action-sheet-title',
-      buttons: [
-        {
-          text: 'Latitude: ' + this.position.latitude,
-          icon: 'md-arrow-dropdown-circle',
-          cssClass: 'sheet',
-          handler: () => {
-            console.log('Destructive clicked');
-          }
-        },{
-          text: 'Longitude: ' + this.position.longitude,
-          icon: 'md-arrow-dropleft-circle',
-          cssClass: 'sheet',
-          handler: () => {
-            console.log('Destructive clicked');
-          }
-        },{
-          text: 'Accuracy: ' + this.position.accuracy + ' Metres',
-          icon: 'md-analytics',
-          cssClass: 'sheet',
-          handler: () => {
-            console.log('Destructive clicked');
-          }
-        },{
-          text: 'Altitude: ' + this.position.altitude,
-          icon: 'md-image',
-          cssClass: 'sheet',
-          handler: () => {
-            console.log('Destructive clicked');
-          }
-        },{
-          text: 'Altitude Accuracy: ' + this.position.altitudeAccuracy,
-          icon: 'ios-analytics',
-          cssClass: 'sheet',
-          handler: () => {
-            console.log('Destructive clicked');
-          }
-        },{
-          text: 'Speed: ' + this.position.speed,
-          icon: 'ios-speedometer',
-          cssClass: 'sheet',
-          handler: () => {
-            console.log('Destructive clicked');
-          }
-        },{
-          text: 'Heading: ' + this.position.heading,
-          icon: 'md-compass',
-          cssClass: 'sheet-last',
-          handler: () => {
-            console.log('Destructive clicked');
-          }
-        }
-      ]
-    });
-    gpsView.present();
-  }
-
   toggleTracking() {
     this.sharedData.trackingIsOn = !this.sharedData.trackingIsOn;
   }
@@ -1312,5 +1244,46 @@ export class ExaminationPage {
         target: {lat: this.routeGuideOptions.points[0].lat, lng: this.routeGuideOptions.points[0].lng }
       });
     }
+  }
+
+  compute2DPolygonCentroid(polyCorners)
+  {
+    let centroid = {lat: 0, lng: 0};
+    let signedArea = 0.0;
+    let x0: number = 0.0; // Current vertex X
+    let y0: number = 0.0; // Current vertex Y
+    let x1: number = 0.0; // Next vertex X
+    let y1: number = 0.0; // Next vertex Y
+    let a: number = 0.0;  // Partial signed area
+
+    // For all vertices except last
+    for (let cornerIdx=0; cornerIdx < polyCorners.length-1; cornerIdx++)
+    {
+        x0 = polyCorners[cornerIdx].lng;
+        y0 = polyCorners[cornerIdx].lat;
+        x1 = polyCorners[cornerIdx+1].lng;
+        y1 = polyCorners[cornerIdx+1].lat;
+        a = x0*y1 - x1*y0;
+        signedArea += a;
+        centroid.lng += (x0 + x1)*a;
+        centroid.lat += (y0 + y1)*a;
+    }
+
+    // Do last vertex separately to avoid performing an expensive
+    // modulus operation in each iteration.
+    x0 = polyCorners[polyCorners.length-1].lng;
+    y0 = polyCorners[polyCorners.length-1].lat;
+    x1 = polyCorners[0].lng;
+    y1 = polyCorners[0].lat;
+    a = x0*y1 - x1*y0;
+    signedArea += a;
+    centroid.lng += (x0 + x1)*a;
+    centroid.lat += (y0 + y1)*a;
+
+    signedArea *= 0.5;
+    centroid.lng /= (6.0*signedArea);
+    centroid.lat /= (6.0*signedArea);
+
+    return centroid;
   }
 }

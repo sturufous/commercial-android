@@ -13,7 +13,9 @@ import { QueryList } from '@angular/core';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  priority: 'low'
+})
 @Component({
   selector: 'page-intersections',
   templateUrl: 'intersections.html',

@@ -15,7 +15,9 @@ import { FileOpener } from '@ionic-native/file-opener';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+})
 @Component({
   selector: 'page-details',
   templateUrl: 'details.html',

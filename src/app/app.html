@@ -23,6 +23,10 @@
                 Help
                 <ion-icon name="help" class="menu-icon" item-right></ion-icon>
             </ion-item>
+            <ion-item no-lines [menuClose] [class.inactiveHighlight]="!checkActive('HelpPage')" [class.activeHighlight]="checkActive('HelpPage')" class="menu-options" (click)="logout()">
+                Logout
+                <ion-icon name="log-out" class="menu-icon" item-right></ion-icon>
+            </ion-item>
         </ion-list>
     </ion-content>
 </ion-menu>

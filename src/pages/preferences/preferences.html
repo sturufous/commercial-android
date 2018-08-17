@@ -24,7 +24,9 @@
 
   <ion-card style="margin: 0">
     <ion-list>
-        <ion-item-divider color="light"><ion-icon name="speed"></ion-icon><h2>SPEED MARGIN</h2></ion-item-divider>
+        <ion-item-divider ion-item color="light" style="font-size: 18pt" >
+          <ion-icon name="speedometer" style="font-size: 24pt"></ion-icon> <span style="font-size: 12pt">  SPEED MARGIN</span>
+        </ion-item-divider>
         <ion-item style="border-bottom:1px solid #DDD">
         <ion-range min="0" max="8" step="1" [(ngModel)]="sharedData.userProfile.speedMargin">
           <ion-label range-left>{{ sharedData.userProfile.speedMargin }} Kmh</ion-label>
@@ -37,7 +39,9 @@
 
   <ion-card style="margin: 0">
     <ion-list>
-      <ion-item-divider color="light"><ion-icon name="speed"></ion-icon><h2>UPDATE INTERVAL (requires restart)</h2></ion-item-divider>
+      <ion-item-divider ion-item color="light" style="font-size: 18pt">
+        <span style="font-size: 12pt"> <ion-icon name="refresh" style="font-size: 24pt"></ion-icon> UPDATE INTERVAL (requires restart)</span>
+      </ion-item-divider>
       <ion-item style="border-bottom:1px solid #DDD">
         <ion-range min="1" max="10" step="1" [(ngModel)]="sharedData.userProfile.updateInterval">
           <ion-label range-left>{{ sharedData.userProfile.updateInterval }} Seconds</ion-label>
@@ -51,18 +55,15 @@
   <ion-card style="margin: 0">
     <ion-list>
       <ion-item style="border-bottom:1px solid #DDD">
-        <ion-label>Sound Notifications: </ion-label>
+        <ion-label> <ion-icon name="alarm"></ion-icon> Sound Notifications:</ion-label>
         <ion-toggle [(ngModel)]="sharedData.userProfile.soundNotifications">
         </ion-toggle>                  
       </ion-item>
       <ion-item style="border-bottom:1px solid #DDD">
-          <ion-label>GPS debug mode (requires restart): </ion-label>
-          <ion-toggle [(ngModel)]="sharedData.userProfile.gpsDebugFlag">
-          </ion-toggle>                  
-        </ion-item>
-      </ion-list>
+        <ion-label> <ion-icon name="bug"></ion-icon> GPS debug mode (requires restart):</ion-label>
+        <ion-toggle [(ngModel)]="sharedData.userProfile.gpsDebugFlag">
+        </ion-toggle>                  
+      </ion-item>
+    </ion-list>
   </ion-card>
 </ion-content>
-
-
-<ion-toggle [(ngModel)]="pepperoni"></ion-toggle>

@@ -10,7 +10,9 @@ import { CommercialDbProvider } from '../../providers/commercial-db/commercial-d
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  priority: 'low'
+})
 @Component({
   selector: 'page-pretrip',
   templateUrl: 'pretrip.html',

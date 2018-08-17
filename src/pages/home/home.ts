@@ -4,7 +4,6 @@ import { ShareProvider } from '../../providers/share/share';
 import { ModalController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { CommercialDbProvider } from '../../providers/commercial-db/commercial-db';
-import { SplashScreen } from '@ionic-native/splash-screen';
 
 export class UserProfile {
   _id: string;
@@ -37,7 +36,9 @@ export class UserProfile {
   }
 }
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -56,8 +57,7 @@ export class HomePage {
     shareProvider: ShareProvider, 
     modalController: ModalController,
     dbProvider: CommercialDbProvider,
-    http: Http,
-    public splashScreen: SplashScreen) {
+    http: Http) {
  
       this.sharedData = shareProvider;
       this.modalController = modalController;
@@ -190,7 +190,6 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.splashScreen.hide();
 
     this.dbProvider.getExams().then((data) => {
       this.exams = data;
