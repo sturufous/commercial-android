@@ -50,6 +50,29 @@ export class MyApp {
   }
 
   logout() {
-    this.nav.setRoot('LogoutPage');
+    this.sharedData.detailsTabEnabled = false;
+    this.sharedData.examinationTabEnabled = false;
+    this.sharedData.pretripTabEnabled = false;
+
+    /* this.sharedData.currentExam = this.sharedData.examDefaults;
+    this.sharedData.examRevision = '';
+    this.sharedData.licenseClass = ''; 
+
+    this.sharedData.leftTurn = {infractions: [], notes:''};
+    this.sharedData.rightTurn = {infractions: [], notes:''};
+    this.sharedData.roadPosition = {infractions: [], notes:''};
+    this.sharedData.speed = {infractions: [], notes:''};
+    this.sharedData.backing = {infractions: [], notes:''};
+    this.sharedData.shifting = {infractions: [], notes:''};
+    this.sharedData.rightOfWay = {infractions: [], notes:''};
+    this.sharedData.uncoupling = {infractions: [], notes:''};
+    this.sharedData.coupling = {infractions: [], notes:''};
+
+    this.sharedData.coupling.routes = [];
+    this.sharedData.coupling.examLoadedFromDB = null; */
+
+    // May need more initializations, but for now assuming the HomePage.openExam() and HomePage.createExam() will do it.
+
+    this.nav.setRoot('LoginPage');
   }
 }

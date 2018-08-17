@@ -11,21 +11,15 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-list class="page-header card-corners">
-    <ion-item class="item-trns" style="border: 0">
-      <ion-avatar item-start>
-        <img src="assets/imgs/truck1.png">
-      </ion-avatar>
-      <h1>Log In</h1>
-    </ion-item>
-  </ion-list>
+<ion-content padding class="login-page-gradient">
 
-  <ion-card padding="10px">
+  <img src="assets/imgs/login-header.png">
+
+  <ion-card padding>
   <ion-list>
     <form>
       <ion-item>
-        <ion-label floating>User Name:</ion-label>
+        <ion-label floating>Users Name:</ion-label>
         <ion-input type="text"></ion-input>
       </ion-item>
       <ion-item>
@@ -33,7 +27,7 @@
         <ion-input type="password"></ion-input>
       </ion-item>
       <ion-item>
-        <button ion-button (click)="logMeIn()">
+        <button ion-button (click)="logMeIn()" style="width: 100%; margin-top: 15px; height: 35px">
           Login
         </button>
       </ion-item>

@@ -253,6 +253,7 @@ export class CommercialDbProvider {
 }
     
   deleteExam(exam){
+    debugger;
       this.db.remove(exam).catch((err) => {
         console.log(err);
       });

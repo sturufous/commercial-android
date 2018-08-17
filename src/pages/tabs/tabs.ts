@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ShareProvider } from '../../providers/share/share';
 import { IonicPage } from 'ionic-angular';
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 @IonicPage({
   priority: 'high'
@@ -19,8 +18,7 @@ export class TabsPage {
 
   sharedData: ShareProvider;
 
-  constructor(shareProvider: ShareProvider, public screenOrientation: ScreenOrientation) {
+  constructor(shareProvider: ShareProvider) {
     this.sharedData = shareProvider;
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
   }
 }

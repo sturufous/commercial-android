@@ -34,6 +34,13 @@ $SIDEMENU_TRANSPARENT: rgba(0, 0, 0, 0);
     overflow: hidden;
 }
 
+.login-page-gradient {
+    background: -webkit-linear-gradient(to top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -o-linear-gradient(to top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: -moz-linear-gradient(to top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+    background: linear-gradient(to top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+}
+
 .side-menu-gradient {
     background: -webkit-linear-gradient(to bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
     background: -o-linear-gradient(to bottom, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);

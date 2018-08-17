@@ -67,7 +67,7 @@ export class ShareProvider {
     currentColour: string = 'primary';
     brushSize: number = 10;
 
-    currentExam = {
+    examDefaults = {
         _id: null,
         _rev: null,
         type: 'exam',
@@ -88,6 +88,8 @@ export class ShareProvider {
         route: [],
         _attachments: {}
     };
+
+    currentExam = this.examDefaults;
 
     class1Pretest = {
         wheelsBlocked: false,
