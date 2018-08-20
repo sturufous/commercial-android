@@ -96,7 +96,7 @@ export class HomePage {
         apptDate: new Date(), 
         apptTime: '12:30',
         unit: '345',
-        route: '',
+        route: 'Route1',
         office: '12345',
         initials: 'SM'
     }; 

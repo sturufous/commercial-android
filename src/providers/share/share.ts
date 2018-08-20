@@ -178,7 +178,7 @@ export class ShareProvider {
         this.examiner = formBuilder.group({
             apptTime: ['', Validators.compose([Validators.required])],
             unit: ['', Validators.compose([Validators.maxLength(10), Validators.required])],
-            route: ['Route2', Validators.compose([Validators.required])],
+            route: ['', Validators.compose([Validators.required])],
             apptDate: ['', Validators.compose([Validators.required])],
             office: ['', Validators.compose([Validators.required])],
             initials: ['', Validators.compose([Validators.maxLength(3), Validators.required])]

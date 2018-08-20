@@ -72,7 +72,6 @@ export class CommercialDbProvider {
   }
 
   getDocById(key) {
-    let me = this;
   
     return new Promise(resolve => {
       this.db.find({
@@ -97,7 +96,7 @@ export class CommercialDbProvider {
   }
 
   handleChange(change) {
-
+debugger;
     console.log("Entering handleChange(): " + JSON.stringify(change));
     let changedDoc = null;
     let changedIndex = null;
@@ -126,6 +125,7 @@ export class CommercialDbProvider {
       //A document was added
       else {
         console.log("A document was added " + changedIndex)
+        change.doc.id = change.id;
         this.data.push(change.doc);
       }
     }
