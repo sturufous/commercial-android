@@ -59,6 +59,7 @@ export class ExaminationPage {
   routeSpeedZones: any = null;
   speedZonePolygons: any[] = [];
   speedZoneMarkers: any[] = [];
+  infractionMarkers: any = {};
   zonePolygonsVisible = false;
 
   VICTORIA_BC = {"lat": 48.4238642, "lng": -123.36846639};
@@ -291,6 +292,7 @@ export class ExaminationPage {
     var index = this.indexByTime(infraction, infractions);
     if (index > -1) {
         infractions.splice(index, 1);
+        this.infractionMarkers[infraction.time.toISOString()].remove();
     }
   }
 
@@ -964,6 +966,10 @@ export class ExaminationPage {
           '</div>');
         htmlInfoWindow.open(marker);
       });
+      debugger;
+
+      // Add marker to global array so it can be removed if infraction is deleted
+      this.infractionMarkers[demeritData.time.toISOString()] = marker;
 
       return {
         value: description, 
@@ -1097,6 +1103,7 @@ export class ExaminationPage {
 
           this.line = this.map.addPolylineSync(this.options);
 
+          // Add route id marker
           let marker: Marker = this.map.addMarkerSync({
             icon: {
               url: 'assets/imgs/' + this.sharedData.examiner.getRawValue().route + '.png',
@@ -1112,6 +1119,7 @@ export class ExaminationPage {
             }
           });
     
+          // Add blue dot for current location
           this.currentLoc = this.map.addMarkerSync({
             icon: {
               url: 'assets/imgs/current-loc.png',

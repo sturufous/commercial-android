@@ -36,7 +36,7 @@ export class DetailsPage {
   submitAttempt: boolean = false;
   masks: any;
   phoneNumber: any;
-  classes: any = ['1','3','2','4U','4-17']
+  classes: any = ['1','3','20','07','2','4U','4-17']
 
   constructor(public navCtrl: NavController, 
     shareProvider: ShareProvider, 

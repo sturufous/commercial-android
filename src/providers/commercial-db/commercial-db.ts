@@ -96,7 +96,7 @@ export class CommercialDbProvider {
   }
 
   handleChange(change) {
-debugger;
+
     console.log("Entering handleChange(): " + JSON.stringify(change));
     let changedDoc = null;
     let changedIndex = null;
@@ -118,15 +118,17 @@ debugger;
   
       //A document was updated
       if (changedDoc) {
-        console.log("A document was updated " + changedIndex)
+        console.log("A document was updated " + changedIndex);
         this.data[changedIndex] = change.doc;
       }
   
       //A document was added
       else {
-        console.log("A document was added " + changedIndex)
-        change.doc.id = change.id;
-        this.data.push(change.doc);
+        if (change.doc.type == 'exam') {
+          console.log("A document was added " + changedIndex)
+          change.doc.id = change.id;
+          this.data.push(change.doc);
+        }
       }
     }
   }
