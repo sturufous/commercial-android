@@ -248,6 +248,79 @@ export class ShareProvider {
         belts: false,
         hoses: false,
         steeringComponents: false,
+
+        chargeRate: false,
+        defrosterHeater: false,
+        emergencyEquipment: false,
+        fuelGuage: false,
+        horn: false,
+        panelLights: false,
+        interiorLights: false,
+        mirrors: false,
+        oilPressure: false,
+        seatsBelts: false,
+        windowsCondition: false,
+        wipersWasher: false,
+
+        battery: false,
+        bodyFrame: false,
+        doors: false,
+        driveShafts: false,
+        exhaust: false,
+        fuelCap: false,
+        inspectionDecals: false,
+        plates: false,
+        loadSecurity: false,
+        mudFlaps: false,
+        storageCompartments: false,
+        suspension: false,
+
+        headlights: false,
+        emergencyFlashers: false,
+        turnSignals: false,
+        tailLights: false,
+        brakeLights: false,
+        licenseLights: false,
+
+        tireCondition: false,
+        lugNuts: false,
+        hubOil: false,
+        rims: false,
+
+        parkingBrake: false,
+        serviceBrake: false,
+
+        busLights: false,
+        stopSign: false,
+        emergencyExits: false,
+        seatBelts: false,
+
+        completedCorrectly: false,
+
+        supplyReservoir: false,
+        airCompressor: false,
+        lowPressureWarning: false,
+        brakeChambers: false,
+        buildUpTime: false,
+        governorOperation: false,
+        pushRodTravel: false,
+        leakageTest: false,
+
+        footValve: false,
+        parkingBrakeYellow: false
+    }
+
+    class4UPretest = {
+        wheelsBlocked: false,
+        properTools: false,
+
+        leaks: false,
+        engineOil: false,
+        coolant: false,
+        otherFluids: false,
+        belts: false,
+        hoses: false,
+        steeringComponents: false,
         chargeRate: false,
         defrosterHeater: false,
         emergencyEquipment: false,
@@ -280,30 +353,20 @@ export class ShareProvider {
         brakeLights: false,
         licenseLights: false,
 
+        tireCondition: false,
+        lugNuts: false,
+        hubOil: false,
+        rims: false,
 
-    }
+        parkingBrake: false,
+        serviceBrake: false,
 
-    class4UPretest = {
-        wheelsBlocked: false,
-        properTools: false,
-        leaks: false,
-        engineOil: false,
-        coolant: false,
-        otherFluids: false,
-        belts: false,
-        hoses: false,
-        steeringComponents: false,
-        chargeRate: false,
-        defrosterHeater: false,
-        emergencyEquipment: false,
-        fuelGuage: false,
-        horn: false,
-        panelLights: false,
-        mirrors: false,
-        oilPressure: false,
-        seatsBelts: false,
-        windowsCondition: false,
-        wipersWasher: false,
+        busLights: false,
+        stopSign: false,
+        emergencyExits: false,
+        seatBelts: false,
+
+        completedCorrectly: false
     }
 
     class417Pretest = {
