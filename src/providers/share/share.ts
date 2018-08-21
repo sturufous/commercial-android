@@ -86,6 +86,7 @@ export class ShareProvider {
         results: null,
         comments: [],
         route: [],
+        id: null,
         _attachments: {}
     };
 
@@ -115,8 +116,9 @@ export class ShareProvider {
         steeringComponents: false
     }
 
-    class2Pretest = {
+    code07Pretest = {
         wheelsBlocked: false,
+
         properTools: false,
         leaks: false,
         engineOil: false,
@@ -124,7 +126,161 @@ export class ShareProvider {
         otherFluids: false,
         belts: false,
         hoses: false,
-        steeringComponents: false
+        steeringComponents: false,
+        battery: false,
+
+        chargeRate: false,
+        defrosterHeater: false,
+        emergencyEquipment: false,
+        fuelGuage: false,
+        horn: false,
+        panelLights: false,
+        mirrors: false,
+        oilPressure: false,
+        seatsBelts: false,
+        windowsCondition: false,
+        wipersWasher: false,
+
+        bodyFrame: false,
+        doors: false,
+        exhaust: false,
+        fuelCap: false,
+        legsLandingGear: false,
+        plates: false,
+        loadSecurement: false,
+        mudFlaps: false,
+        suspension: false,
+        storageCompartments: false,
+
+        headlights: false,
+        emergencyFlashers: false,
+        turnSignals: false,
+        tailLights: false,
+        brakeLights: false,
+        licenseLights: false,
+
+        tireCondition: false,
+        lugNuts: false,
+        rims: false,
+
+        electricalCable: false,
+        fifthWheelLock: false,
+        hitchChainsCables: false,
+
+        parkingBrake: false,
+        serviceBrake: false,
+        trailerBrake: false,
+        breakawaySwitch: false,
+
+        propaneTanks: false,
+        stepsLadders: false,
+        awning: false,
+        appliances: false,
+        slideOuts: false,
+        insideSecurity: false
+    }
+
+    code20Pretest = {
+        wheelsBlocked: false,
+        properTools: false,
+
+        leaks: false,
+        engineOil: false,
+        coolant: false,
+        otherFluids: false,
+        belts: false,
+        hoses: false,
+        steeringComponents: false,
+        battery: false,
+
+        chargeRate: false,
+        defrosterHeater: false,
+        emergencyEquipment: false,
+        fuelGuage: false,
+        horn: false,
+        panelLights: false,
+        mirrors: false,
+        oilPressure: false,
+        seatsBelts: false,
+        windowsCondition: false,
+        wipersWasher: false,
+
+        bodyFrame: false,
+        doors: false,
+        exhaust: false,
+        fuelCap: false,
+        legsLandingGear: false,
+        plates: false,
+        loadSecurement: false,
+        mudFlaps: false,
+        suspension: false,
+        storageCompartments: false,
+
+        headlights: false,
+        emergencyFlashers: false,
+        turnSignals: false,
+        tailLights: false,
+        brakeLights: false,
+        licenseLights: false,
+
+        tireCondition: false,
+        lugNuts: false,
+        rims: false,
+
+        electricalCable: false,
+        fifthWheelLock: false,
+        hitchChainsCables: false,
+
+        parkingBrake: false,
+        serviceBrake: false,
+        trailerBrake: false,
+        breakawaySwitch: false,
+    }
+
+    class2Pretest = {
+        wheelsBlocked: false,
+        properTools: false,
+
+        leaks: false,
+        engineOil: false,
+        coolant: false,
+        otherFluids: false,
+        belts: false,
+        hoses: false,
+        steeringComponents: false,
+        chargeRate: false,
+        defrosterHeater: false,
+        emergencyEquipment: false,
+        fuelGuage: false,
+        horn: false,
+        panelLights: false,
+        mirrors: false,
+        oilPressure: false,
+        seatsBelts: false,
+        windowsCondition: false,
+        wipersWasher: false,
+
+        battery: false,
+        bodyFrame: false,
+        doors: false,
+        driveShafts: false,
+        exhaust: false,
+        fuelCap: false,
+        inspectionDecals: false,
+        plates: false,
+        loadSecurity: false,
+        mudFlaps: false,
+        storageCompartments: false,
+        suspension: false,
+
+        headlights: false,
+        emergencyFlashers: false,
+        turnSignals: false,
+        tailLights: false,
+        brakeLights: false,
+        licenseLights: false,
+
+
     }
 
     class4UPretest = {
@@ -136,7 +292,18 @@ export class ShareProvider {
         otherFluids: false,
         belts: false,
         hoses: false,
-        steeringComponents: false
+        steeringComponents: false,
+        chargeRate: false,
+        defrosterHeater: false,
+        emergencyEquipment: false,
+        fuelGuage: false,
+        horn: false,
+        panelLights: false,
+        mirrors: false,
+        oilPressure: false,
+        seatsBelts: false,
+        windowsCondition: false,
+        wipersWasher: false,
     }
 
     class417Pretest = {

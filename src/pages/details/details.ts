@@ -16,7 +16,7 @@ import { FileOpener } from '@ionic-native/file-opener';
  */
 
 @IonicPage({
-  priority: 'high'
+  priority: 'low'
 })
 @Component({
   selector: 'page-details',

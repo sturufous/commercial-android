@@ -3,7 +3,7 @@ import { ShareProvider } from '../../providers/share/share';
 import { IonicPage } from 'ionic-angular';
 
 @IonicPage({
-  priority: 'high'
+  priority: 'low'
 })
 @Component({
   templateUrl: 'tabs.html'

@@ -37,7 +37,7 @@ export class UserProfile {
 }
 
 @IonicPage({
-  priority: 'high'
+  priority: 'low'
 })
 @Component({
   selector: 'page-home',
@@ -82,6 +82,7 @@ export class HomePage {
       coupling: {infractions: [], notes:''},
       results: {dangerousAction: '', trafficViolation: '', other: '', qualified: ''},
       route: [],
+      id: '',
       _attachments: {},
       comments: ['','','','','','','','','']
     };

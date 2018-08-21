@@ -16,7 +16,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
  */
 
 @IonicPage({
-  priority: 'high'
+  priority: 'low'
 })
 @Component({
   selector: 'page-examination',
@@ -966,7 +966,6 @@ export class ExaminationPage {
           '</div>');
         htmlInfoWindow.open(marker);
       });
-      debugger;
 
       // Add marker to global array so it can be removed if infraction is deleted
       this.infractionMarkers[demeritData.time.toISOString()] = marker;

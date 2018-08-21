@@ -106,6 +106,7 @@ export class CommercialDbProvider {
       if (this.data[docIdx].id === change.id) {
         changedDoc = this.data[docIdx];
         changedIndex = docIdx;
+        break;
       }
     };
   
@@ -140,6 +141,7 @@ export class CommercialDbProvider {
         
         this.sharedData.currentExam._id = response.id;
         this.sharedData.currentExam._rev = response.rev;
+        this.sharedData.currentExam.id = response.id;
         this.sharedData.examRevision = revision;
 
         this.sharedData.currentExam.client = exam.client;
