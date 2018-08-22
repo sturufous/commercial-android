@@ -74,6 +74,7 @@ export class ShareProvider {
         licenseClass: null,
         client: null,
         examiner: null,
+        pretrip: null,
         leftTurn: {infractions: [], notes:''},
         rightTurn: {infractions: [], notes:''},
         roadPosition: {infractions: [], notes:''},
@@ -92,34 +93,166 @@ export class ShareProvider {
 
     currentExam = this.examDefaults;
 
-    class1Pretest = {
+    class1PretestDefaults = {
+        class: '1',
         wheelsBlocked: false,
         properTools: false,
+
         leaks: false,
         engineOil: false,
         coolant: false,
         otherFluids: false,
         belts: false,
         hoses: false,
-        steeringComponents: false
+        steeringComponents: false,
+
+        chargeRate: false,
+        defroster: false,
+        emergencyEquipment: false,
+        fuelGuage: false,
+        horn: false,
+        panelLights: false,
+        mirrors: false,
+        oilPressure: false,
+        seatsBelts: false,
+        windowsCondition: false,
+        wipersWasher: false,
+
+        battery: false,
+        bodyFrame: false,
+        doors: false,
+        driveShafts: false,
+        exhaust: false,
+        fuelCap: false,
+        inspectionDecals: false,
+        landingGear: false,
+        plates: false,
+        loadSecurity: false,
+        mudFlaps: false,
+        axleAssembly: false,
+        storageCompartments: false,
+        suspension: false,
+
+        headlights: false,
+        emergencyFlashers: false,
+        turnSignals: false,
+        tailLights: false,
+        brakeLights: false,
+        licenseLights: false,
+
+        tireCondition: false,
+        lugNuts: false,
+        hubOil: false,
+        rims: false,
+
+        electricalCable: false,
+        fifthWheelLock: false,
+        hitchChainsCables: false,
+
+        completedCorrectly: false,
+
+        supplyReservoir: false,
+        airCompressor: false,
+        lowPressureWarning: false,
+        airLines: false,
+        brakeChambers: false,
+        buildUpTime: false,
+        governorOperation: false,
+        pushRodTravel: false,
+        leakageTest: false,
+
+        supplyValve: false,
+        trailerBrakes: false,
+        gladHandsDisc: false,
+        serviceBrake: false,
+
+        tractorPark: false,
+        trailerPark: false,
+        handValve: false,
+        footValve: false
     }
 
-    class3Pretest = {
+    class3PretestDefaults = {
+        class: '3',
         wheelsBlocked: false,
         properTools: false,
+
         leaks: false,
         engineOil: false,
         coolant: false,
         otherFluids: false,
         belts: false,
         hoses: false,
-        steeringComponents: false
+        steeringComponents: false,
+
+        chargeRate: false,
+        defroster: false,
+        emergencyEquipment: false,
+        fuelGuage: false,
+        horn: false,
+        panelLights: false,
+        mirrors: false,
+        oilPressure: false,
+        seatsBelts: false,
+        windowsCondition: false,
+        wipersWasher: false,
+
+        battery: false,
+        bodyFrame: false,
+        doors: false,
+        driveShafts: false,
+        exhaust: false,
+        fuelCap: false,
+        inspectionDecals: false,
+        landingGear: false,
+        plates: false,
+        loadSecurity: false,
+        mudFlaps: false,
+        axleAssembly: false,
+        storageCompartments: false,
+        suspension: false,
+
+        headlights: false,
+        emergencyFlashers: false,
+        turnSignals: false,
+        tailLights: false,
+        brakeLights: false,
+        licenseLights: false,
+
+        tireCondition: false,
+        lugNuts: false,
+        hubOil: false,
+        rims: false,
+
+        electricalCable: false,
+        fifthWheelLock: false,
+        hitchChainsCables: false,
+
+        completedCorrectly: false,
+
+        supplyReservoir: false,
+        airCompressor: false,
+        lowPressureWarning: false,
+        airLines: false,
+        brakeChambers: false,
+        buildUpTime: false,
+        governorOperation: false,
+        pushRodTravel: false,
+        leakageTest: false,
+
+        supplyValve: false,
+        trailerBrakes: false,
+        gladHandDisc: false,
+        serviceBrake: false,
+
+        footValve: false,
+        parkingBrakeYellow: false
     }
 
-    code07Pretest = {
+    code07PretestDefaults = {
+        code: '07',
         wheelsBlocked: false,
 
-        properTools: false,
         leaks: false,
         engineOil: false,
         coolant: false,
@@ -180,9 +313,9 @@ export class ShareProvider {
         insideSecurity: false
     }
 
-    code20Pretest = {
+    code20PretestDefaults = {
+        code: '20',
         wheelsBlocked: false,
-        properTools: false,
 
         leaks: false,
         engineOil: false,
@@ -237,7 +370,8 @@ export class ShareProvider {
         breakawaySwitch: false,
     }
 
-    class2Pretest = {
+    class2PretestDefaults = {
+        class: '2',
         wheelsBlocked: false,
         properTools: false,
 
@@ -293,7 +427,7 @@ export class ShareProvider {
         busLights: false,
         stopSign: false,
         emergencyExits: false,
-        seatBelts: false,
+        passengerSeatsBelts: false,
 
         completedCorrectly: false,
 
@@ -310,7 +444,8 @@ export class ShareProvider {
         parkingBrakeYellow: false
     }
 
-    class4UPretest = {
+    class4UPretestDefaults = {
+        class: '4U',
         wheelsBlocked: false,
         properTools: false,
 
@@ -327,6 +462,7 @@ export class ShareProvider {
         fuelGuage: false,
         horn: false,
         panelLights: false,
+        interiorLights: false,
         mirrors: false,
         oilPressure: false,
         seatsBelts: false,
@@ -364,22 +500,60 @@ export class ShareProvider {
         busLights: false,
         stopSign: false,
         emergencyExits: false,
-        seatBelts: false,
+        passengerSeatsBelts: false,
 
         completedCorrectly: false
     }
 
-    class417Pretest = {
-        wheelsBlocked: false,
-        properTools: false,
-        leaks: false,
+    class417PretestDefaults = {
+        class: '4-17',
+        parkingBrakeSet: false,
+
         engineOil: false,
         coolant: false,
-        otherFluids: false,
+        battery: false,
         belts: false,
         hoses: false,
-        steeringComponents: false
+        leaks: false,
+        otherFluids: false,
+
+        defrosterHeater: false,
+        fuelGuage: false,
+        horn: false,
+        interiorLights: false,
+        mirrors: false,
+        seatBelts: false,
+        windowsCondition: false,
+        wipersWasher: false,
+
+        bodyFrame: false,
+        doors: false,
+        exhaust: false,
+        fuelCap: false,
+        licensePlates: false,
+        trunk: false,
+
+        headlights: false,
+        emergencyFlashers: false,
+        turnSignals: false,
+        tailLights: false,
+        brakeLights: false,
+        licenseLights: false,
+
+        tireCondition: false,
+        lugNuts: false,
+
+        parkingBrake: false,
+        serviceBrake: false
     }
+
+    class1Pretest = this.class1PretestDefaults;
+    class3Pretest = this.class3PretestDefaults;
+    class2Pretest = this.class2PretestDefaults;
+    class4UPretest = this.class4UPretestDefaults;
+    code07Pretest = this.code07PretestDefaults;
+    code20Pretest = this.code20PretestDefaults;
+    class417Pretest = this.class417PretestDefaults;
 
     userProfile;
 
@@ -477,6 +651,33 @@ export class ShareProvider {
           this.presentToast("Examination data not valid");
           return { valid: false };
         }
+
+        debugger;
+        switch (this.licenseClass) {
+            case '1':
+                this.currentExam.pretrip = this.class1Pretest;
+                break;
+            case '3':
+                this.currentExam.pretrip = this.class3Pretest;
+                break;
+            case '2':
+                this.currentExam.pretrip = this.class2Pretest;
+                break;
+            case '20':
+                this.currentExam.pretrip = this.code20Pretest;
+                break;
+            case '07':
+                this.currentExam.pretrip = this.code07Pretest;
+                break;
+            case '4U':
+                this.currentExam.pretrip = this.class4UPretest;
+                break;
+            case '4-17':
+                this.currentExam.pretrip = this.class417Pretest;
+                break;
+            default:
+               break;
+          }
         
         this.currentExam.licenseClass = this.licenseClass;
         this.currentExam.client = this.client.value;

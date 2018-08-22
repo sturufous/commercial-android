@@ -146,6 +146,7 @@ export class CommercialDbProvider {
 
         this.sharedData.currentExam.client = exam.client;
         this.sharedData.currentExam.examiner = exam.examiner;
+        this.sharedData.currentExam.pretrip = exam.pretrip;
         this.sharedData.currentExam._attachments = exam._attachments;
         this.sharedData.leftTurn = exam.leftTurn;
         this.sharedData.rightTurn = exam.rightTurn;

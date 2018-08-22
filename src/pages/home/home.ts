@@ -71,6 +71,7 @@ export class HomePage {
       licenseClass: '', 
       client: null, 
       examiner: null,
+      pretrip: null,
       leftTurn: {infractions: [], notes:''},
       rightTurn: {infractions: [], notes:''},
       roadPosition: {infractions: [], notes:''},
@@ -88,6 +89,17 @@ export class HomePage {
     };
 
     examTemplate.licenseClass = '1';
+    examTemplate.pretrip = this.sharedData.class1PretestDefaults;
+
+    // Blank out all pre-existing pre-trip test data
+    this.sharedData.class1Pretest = this.sharedData.class1PretestDefaults;
+    this.sharedData.class3Pretest = this.sharedData.class3PretestDefaults;
+    this.sharedData.class2Pretest = this.sharedData.class2PretestDefaults;
+    this.sharedData.class4UPretest = this.sharedData.class4UPretestDefaults;
+    this.sharedData.code07Pretest = this.sharedData.code07PretestDefaults;
+    this.sharedData.code20Pretest = this.sharedData.code20PretestDefaults;
+    this.sharedData.class417Pretest = this.sharedData.class417PretestDefaults;
+
     examTemplate.client = {
         dlNumber: 'DL:1234567',
         surname: '', 
@@ -145,6 +157,32 @@ export class HomePage {
     this.sharedData.examRevision = revision;
 
     this.sharedData.licenseClass = exam.licenseClass; 
+
+    switch (exam.licenseClass) {
+      case '1':
+        this.sharedData.class1Pretest = exam.pretrip;
+        break;
+      case '3':
+        this.sharedData.class3Pretest = exam.pretrip;
+        break;
+      case '2':
+        this.sharedData.class2Pretest = exam.pretrip;
+        break;
+      case '20':
+        this.sharedData.code20Pretest = exam.pretrip;
+        break;
+      case '07':
+        this.sharedData.code07Pretest = exam.pretrip;
+        break;
+      case '4U':
+        this.sharedData.class4UPretest = exam.pretrip;
+        break;
+      case '4-17':
+        this.sharedData.class417Pretest = exam.pretrip;
+        break;
+      default:
+        break;
+    }
 
     this.sharedData.client.setValue(exam.client);
 
