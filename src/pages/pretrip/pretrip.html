@@ -49,7 +49,7 @@
   </ion-list>
     
   <ion-card>
-    <ion-item-divider color="light"><h2>CLASS OF ROAD TEST</h2></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="locate"></ion-icon><span style="font-size: 12pt"> CLASS OF ROAD TEST</span></ion-item-divider>
     <ion-item>
       <img src="assets/imgs/class-{{ sharedData.licenseClass }}-slide.png">
     </ion-item>
@@ -58,7 +58,7 @@
   <div class="spacer" style="width: 748px; height: 15px;"></div>
 
   <ion-card [hidden]="sharedData.licenseClass != '1'">
-      <ion-item-divider color="light"><h2>READY FOR TEST</h2></ion-item-divider>
+      <ion-item-divider color="light"><ion-icon name="checkbox-outline" style="font-size: 14pt"></ion-icon><span style="font-size: 12pt">READY FOR TEST</span></ion-item-divider>
       <ion-list>
       <ion-item>
         <ion-label>Wheels Blocked</ion-label>
@@ -70,7 +70,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-item-divider color="light"><h2>UNDER HOOD</h2></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="build"></ion-icon><span style="font-size: 12pt">UNDER HOOD</span></ion-item-divider>
     <ion-list>
       <ion-item>
         <ion-label>Leaks</ion-label>
@@ -366,14 +366,14 @@
   <ion-card [hidden]="sharedData.licenseClass != '3'">
     <ion-item-divider color="light"><h2>READY FOR TEST</h2></ion-item-divider>
     <ion-list>
-    <ion-item>
-      <ion-label>Wheels Blocked</ion-label>
-      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.wheelsBlocked"></ion-checkbox>
-    </ion-item>
-    <ion-item>
-      <ion-label>Has proper tools</ion-label>
-      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.properTools"></ion-checkbox>
-    </ion-item>
+      <ion-item>
+        <ion-label>Wheels Blocked</ion-label>
+        <ion-checkbox [(ngModel)]="sharedData.class3Pretest.wheelsBlocked"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>Has proper tools</ion-label>
+        <ion-checkbox [(ngModel)]="sharedData.class3Pretest.properTools"></ion-checkbox>
+      </ion-item>
   </ion-list>
 
   <ion-item-divider color="light"><h2>UNDER HOOD</h2></ion-item-divider>
@@ -1634,7 +1634,7 @@
     <ion-item-divider color="light"><h2>READY FOR TEST</h2></ion-item-divider>
     <ion-list>
       <ion-item>
-        <ion-label>Parking Break Set</ion-label>
+        <ion-label>Parking Brake Set</ion-label>
         <ion-checkbox [(ngModel)]="sharedData.class417Pretest.parkingBrakeSet"></ion-checkbox>
       </ion-item>
     </ion-list>

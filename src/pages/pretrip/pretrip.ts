@@ -11,7 +11,7 @@ import { CommercialDbProvider } from '../../providers/commercial-db/commercial-d
  */
 
 @IonicPage({
-  priority: 'low'
+  priority: 'off'
 })
 @Component({
   selector: 'page-pretrip',

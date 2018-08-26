@@ -11,7 +11,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
  */
 
 @IonicPage({
-  priority: 'high'
+  priority: 'low'
 })
 @Component({
   selector: 'page-login',
