@@ -36,14 +36,13 @@ export class DetailsPage {
   submitAttempt: boolean = false;
   masks: any;
   phoneNumber: any;
-  classes: any = ['1','3','20','07','2','4U','4-17']
+  classes: any = ['1','3','20','07','2','4U','4_17']
 
   constructor(public navCtrl: NavController, 
     shareProvider: ShareProvider, 
     modalController: ModalController,
     dbProvider: CommercialDbProvider,
     http: Http,
-    navparams: NavParams,
     public fileOpener: FileOpener,
     public formBuilder: FormBuilder) {
       this.sharedData = shareProvider;
@@ -62,7 +61,13 @@ export class DetailsPage {
   }
 
   slideChanged() {
+    // Set the licenseClass to match the image selected
     this.sharedData.licenseClass = this.classes[this.slider.getActiveIndex()];
+
+    // Set the target link of the pretrip tab to the page matching the license class
+    let tabIndex = 2; // Pretrip Tab Index
+    let myTab = this.navCtrl.parent.getByIndex(tabIndex);
+    myTab.setRoot('Pretrip' + this.sharedData.licenseClass + 'Page');
   }
 
   saveCurrentExam() {

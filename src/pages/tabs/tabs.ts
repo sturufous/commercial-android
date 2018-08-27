@@ -12,7 +12,7 @@ export class TabsPage {
 
   tab1Root = 'HomePage';
   tab2Root = 'DetailsPage';
-  tab3Root = 'PretripPage';
+  tab3Root = 'DetailsPage';
   tab4Root = 'ExaminationPage';
   tab5Root = 'IntersectionsPage';
 

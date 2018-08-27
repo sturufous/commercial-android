@@ -92,6 +92,7 @@ export class ShareProvider {
     };
 
     currentExam = this.examDefaults;
+    currentPretripPage = 'Pretrip1Page';
 
     class1PretestDefaults = {
         class: '1',
@@ -506,7 +507,7 @@ export class ShareProvider {
     }
 
     class417PretestDefaults = {
-        class: '4-17',
+        class: '4_17',
         parkingBrakeSet: false,
 
         engineOil: false,
@@ -672,7 +673,7 @@ export class ShareProvider {
             case '4U':
                 this.currentExam.pretrip = this.class4UPretest;
                 break;
-            case '4-17':
+            case '4_17':
                 this.currentExam.pretrip = this.class417Pretest;
                 break;
             default:

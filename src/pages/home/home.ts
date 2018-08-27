@@ -158,6 +158,8 @@ export class HomePage {
 
     this.sharedData.licenseClass = exam.licenseClass; 
 
+    this.setPretripDefaults();
+
     switch (exam.licenseClass) {
       case '1':
         this.sharedData.class1Pretest = exam.pretrip;
@@ -186,8 +188,6 @@ export class HomePage {
 
     this.sharedData.client.setValue(exam.client);
 
-    // Extract date portion of ISO 8601 date
-    //exam.examiner.apptDate = exam.examiner.apptDate.split('T', 1)[0];
     this.sharedData.examiner.setValue(exam.examiner);
     this.sharedData.results.setValue(exam.results);
 
@@ -211,6 +211,11 @@ export class HomePage {
       this.sharedData.gpsData = [];
     }
 
+    // Set the target link of the pretrip tab to the page matching the license class
+    let tabIndex = 2; // Pretrip Tab Index
+    let myTab = this.navCtrl.parent.getByIndex(tabIndex);
+    myTab.setRoot('Pretrip' + exam.licenseClass + 'Page');
+    
     // Set all demerit lists (including comments) to invisible
     let keys = Object.keys(this.sharedData.hideDemerits);
     for(let idx=0; idx < keys.length; idx++) {
@@ -220,6 +225,17 @@ export class HomePage {
     // Attachements will be loaded by their respective pages
 
     this.navCtrl.parent.select(1);
+  }
+
+  setPretripDefaults() {
+    // Clear any leftover pretrip selections from previous exam
+    this.sharedData.class1Pretest = this.sharedData.class1PretestDefaults;
+    this.sharedData.class3Pretest = this.sharedData.class3PretestDefaults;
+    this.sharedData.class2Pretest = this.sharedData.class2PretestDefaults;
+    this.sharedData.class4UPretest = this.sharedData.class4UPretestDefaults;
+    this.sharedData.code07Pretest = this.sharedData.code07PretestDefaults;
+    this.sharedData.code20Pretest = this.sharedData.code20PretestDefaults;
+    this.sharedData.class417Pretest = this.sharedData.class417PretestDefaults;
   }
 
   ionViewDidLoad() {

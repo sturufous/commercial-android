@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { PretripPage } from './pretrip';
+import { Pretrip1Page } from './pretrip1';
 
 @NgModule({
   declarations: [
-    PretripPage,
+    Pretrip1Page,
   ],
   imports: [
-    IonicPageModule.forChild(PretripPage),
+    IonicPageModule.forChild(Pretrip1Page),
   ],
 })
-export class PretripPageModule {}
+export class Pretrip1PageModule {}

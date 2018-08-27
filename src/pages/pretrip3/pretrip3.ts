@@ -14,10 +14,10 @@ import { CommercialDbProvider } from '../../providers/commercial-db/commercial-d
   priority: 'off'
 })
 @Component({
-  selector: 'page-pretrip',
-  templateUrl: 'pretrip.html',
+  selector: 'page-pretrip3',
+  templateUrl: 'pretrip3.html',
 })
-export class PretripPage {
+export class Pretrip3Page {
 
   constructor(
     public navCtrl: NavController, 
@@ -27,7 +27,7 @@ export class PretripPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PretripPage');
+    console.log('ionViewDidLoad Pretrip3Page');
   }
 
   saveCurrentExam() {

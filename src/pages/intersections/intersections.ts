@@ -14,7 +14,7 @@ import { QueryList } from '@angular/core';
  */
 
 @IonicPage({
-  priority: 'low'
+  priority: 'off'
 })
 @Component({
   selector: 'page-intersections',
