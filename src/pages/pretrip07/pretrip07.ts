@@ -19,6 +19,8 @@ import { CommercialDbProvider } from '../../providers/commercial-db/commercial-d
 })
 export class Pretrip07Page {
 
+  preTripThreshold = 10;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -34,5 +36,17 @@ export class Pretrip07Page {
     if (this.sharedData.prepareCurrentExam().valid) {
       this.dbProvider.updateExam();
     }
+  }
+
+  getPretripDemerits() {
+    
+    let keys = Object.keys(this.sharedData.code07Pretest);
+    let uncheckedCount = 0;
+
+    for (let keyIdx=1; keyIdx < keys.length; keyIdx++) {
+      uncheckedCount += this.sharedData.code07Pretest[keys[keyIdx]] == false ? 1 : 0;
+    }
+
+    return uncheckedCount;
   }
 }

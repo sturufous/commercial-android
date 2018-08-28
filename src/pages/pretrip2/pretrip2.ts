@@ -19,6 +19,9 @@ import { CommercialDbProvider } from '../../providers/commercial-db/commercial-d
 })
 export class Pretrip2Page {
 
+  preTripThreshold = 8;
+  airBrakeThreshold = 2;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -34,5 +37,29 @@ export class Pretrip2Page {
     if (this.sharedData.prepareCurrentExam().valid) {
       this.dbProvider.updateExam();
     }
+  }
+
+  getPretripDemerits() {
+    
+    let keys = Object.keys(this.sharedData.class2Pretest);
+    let uncheckedCount = 0;
+
+    for (let keyIdx=1; keyIdx < keys.length; keyIdx++) {
+      uncheckedCount += this.sharedData.class2Pretest[keys[keyIdx]] == false ? 1 : 0;
+    }
+
+    return uncheckedCount;
+  }
+
+  getAirBrakeDemerits() {
+    
+    let keys = Object.keys(this.sharedData.class2Pretest.airBrake);
+    let uncheckedCount = 0;
+
+    for (let keyIdx=0; keyIdx < keys.length; keyIdx++) {
+      uncheckedCount += this.sharedData.class2Pretest.airBrake[keys[keyIdx]] == false ? 1 : 0;
+    }
+
+    return uncheckedCount;
   }
 }

@@ -49,7 +49,7 @@
   </ion-list>
     
   <ion-card>
-    <ion-item-divider color="light"><ion-icon name="locate"></ion-icon><span style="font-size: 12pt"> CLASS OF ROAD TEST</span></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="locate"></ion-icon><span class="divider"> CLASS OF ROAD TEST</span></ion-item-divider>
     <ion-item>
       <img src="assets/imgs/class-417-slide.png">
     </ion-item>
@@ -58,7 +58,7 @@
   <div class="spacer" style="width: 748px; height: 15px;"></div>
 
   <ion-card>
-    <ion-item-divider color="light"><h2>READY FOR TEST</h2></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="checkbox-outline"></ion-icon><span class="divider">READY FOR TEST</span></ion-item-divider>
     <ion-list>
       <ion-item>
         <ion-label>Parking Brake Set</ion-label>
@@ -66,7 +66,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-item-divider color="light"><h2>UNDER HOOD</h2></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="build"></ion-icon><span class="divider">UNDER HOOD</span></ion-item-divider>
     <ion-list>
       <ion-item>
         <ion-label>Engine Oil</ion-label>
@@ -98,7 +98,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-item-divider color="light"><h2>IN CAB</h2></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="ios-bulb"></ion-icon><span class="divider">IN CAB</span></ion-item-divider>
     <ion-list>
       <ion-item>
         <ion-label>Defroster/Heater</ion-label>
@@ -134,7 +134,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-item-divider color="light"><h2>OUTSIDE VEHICLE</h2></ion-item-divider>
+    <ion-item-divider color="light"><span class="divider"><ion-icon name="md-exit"></ion-icon>OUTSIDE VEHICLE</span></ion-item-divider>
     <ion-list>
       <ion-item>
         <ion-label>Body/Structural Damage</ion-label>
@@ -162,7 +162,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-item-divider color="light"><h2>LIGHTS</h2></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="md-sunny"></ion-icon><span class="divider">LIGHTS</span></ion-item-divider>
     <ion-list>
       <ion-item>
         <ion-label>Low/High Beam Headlights</ion-label>
@@ -190,7 +190,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-item-divider color="light"><h2>WHEELS</h2></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="md-radio-button-on"></ion-icon><span class="divider">WHEELS</span></ion-item-divider>
     <ion-list>
       <ion-item>
         <ion-label>Tire Condition</ion-label>
@@ -202,7 +202,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-item-divider color="light"><h2>BRAKE RESPONSE</h2></ion-item-divider>
+    <ion-item-divider color="light"><ion-icon name="md-download"></ion-icon><span class="divider">BRAKE RESPONSE</span></ion-item-divider>
     <ion-list>
       <ion-item>
         <ion-label>Parking Brake</ion-label>
@@ -222,5 +222,25 @@
       <h2 style="color: white;text-align: center">Copyright &copy; ICBC 2018</h2>
     </ion-item>
   </ion-card>  
-
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col col-2 class="demerit-label">
+          Pretrip&nbsp;&nbsp;<br>Demerit 
+        </ion-col>
+        <ion-col col-1>
+          <span class="inline-demerit-circle" [ngClass]="sharedData.badgeColor(getPretripDemerits(), preTripThreshold)">{{ getPretripDemerits() }}</span>
+        </ion-col>
+        <ion-col col-2 class="demerit-label">
+          Test&nbsp;&nbsp;<br>Done
+        </ion-col>
+        <ion-col col-2>
+          <ion-toggle></ion-toggle>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
