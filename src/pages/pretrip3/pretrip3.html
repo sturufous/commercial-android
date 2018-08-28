@@ -23,7 +23,7 @@
         <ion-icon class="header-badge" name="md-bus"></ion-icon>
       </button>
       <button ion-button icon-only clear>
-        <ion-badge item-end [ngClass]="sharedData.badgeColor(sharedData.getTotalDemeritCount())">
+        <ion-badge item-end [ngClass]="sharedData.badgeColor(sharedData.getTotalDemeritCount(), 0)">
           {{ sharedData.getTotalDemeritCount() }}
         </ion-badge>
         <ion-icon name="notifications" class="header-badge"></ion-icon>
@@ -281,16 +281,60 @@
       <ion-checkbox [(ngModel)]="sharedData.class3Pretest.completedCorrectly"></ion-checkbox>
     </ion-item>
   </ion-list>
+</ion-card>
+
+<div class="spacer" style="width: 748px; height: 15px;"></div>
+
+<ion-card>
+  <ion-item-divider color="light"><h2><b>CLASS 3 AIR BRAKE PRE-TRIP</b></h2></ion-item-divider>
+  <ion-list>
+    <ion-item>
+      <ion-label>Drain Supply Reservoir</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.supplyReservoir"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Air Compressor</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.airCompressor"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Low Pressure Warning Devices</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.lowPressureWarning"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Air Lines</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.airLines"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Brake Chambers</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.brakeChambers"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Build Up Time</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.buildUpTime"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Governor Operation</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.governorOperation"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Push Rod Travel</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.pushRodTravel"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Leakage Test</ion-label>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.leakageTest"></ion-checkbox>
+    </ion-item>
+  </ion-list>
 
   <ion-item-divider color="light"><h2>BRAKE RESPONSE</h2></ion-item-divider>
   <ion-list>
     <ion-item>
       <ion-label>1. Foot Valve</ion-label>
-      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.footValve"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.footValve"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>2. Parking Brake (Yellow)</ion-label>
-      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.parkingBrakeYellow"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="sharedData.class3Pretest.airBrake.parkingBrakeYellow"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-card>

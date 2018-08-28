@@ -169,6 +169,24 @@ ion-icon {
     margin: 0;
 }
 
+.demerit-label {
+    font-size: 11pt;
+    text-align: right;
+}
+
+.inline-demerit-circle {
+    background-color: #32db64;
+    color:white;
+    height:30px;
+    width:30px;
+    border-radius:50%;
+    text-align: center;
+    padding-top: 7px;
+    font-weight: bold;
+    margin: 0;
+    display: block;
+}
+
 .attachment-flag {
     color: #444;
     height:30px;
@@ -180,6 +198,12 @@ ion-icon {
 
 .good {
     background-color: #32bd64;
+    float: right;
+    margin: 0;
+}
+
+.ok {
+    background-color: #f3ba1f;
     float: right;
     margin: 0;
 }

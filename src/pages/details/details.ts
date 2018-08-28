@@ -82,6 +82,24 @@ export class DetailsPage {
     signatureArray[0].dirty = true;
   }
 
+  /**
+   * The pretrip page is assigned to the pretrip tab dynamically at run time based on the license class. The default
+   * page assigned to that tab is the details page (for no particular reason). This code deals with strange 
+   * behaviour where the *first* time you click on the pretrip tab it loads the appropriate pretrip page but 
+   * loads the default page (in this case details) on top, showing a back button in the Navbar. This function detects 
+   * whether the back button for this invocation of details is enabled. As this is not a valid state 
+   * (details is assigned to a tab as a root page only) the page will be popped off the stack revealing the 
+   * correct pretrip page underneath. 
+   */
+
+  ionViewWillEnter() {
+
+    let ctrlr = this.navCtrl.getActive();
+    if (ctrlr.enableBack()) {
+      this.navCtrl.pop();
+    }
+  }
+
   ionViewDidEnter() {
     // Set offset of licensClass slider
     let idx=0;

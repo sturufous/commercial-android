@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { ShareProvider } from '../../providers/share/share';
 import { CommercialDbProvider } from '../../providers/commercial-db/commercial-db';
 
@@ -19,6 +19,9 @@ import { CommercialDbProvider } from '../../providers/commercial-db/commercial-d
 })
 export class Pretrip1Page {
 
+  preTripThreshold = 8;
+  airBrakeThreshold = 3;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -34,5 +37,29 @@ export class Pretrip1Page {
     if (this.sharedData.prepareCurrentExam().valid) {
       this.dbProvider.updateExam();
     }
+  }
+
+  getPretripDemerits() {
+    
+    let keys = Object.keys(this.sharedData.class1Pretest);
+    let uncheckedCount = 0;
+
+    for (let keyIdx=1; keyIdx < keys.length; keyIdx++) {
+      uncheckedCount += this.sharedData.class1Pretest[keys[keyIdx]] == false ? 1 : 0;
+    }
+
+    return uncheckedCount;
+  }
+
+  getAirBrakeDemerits() {
+    
+    let keys = Object.keys(this.sharedData.class1Pretest.airBrake);
+    let uncheckedCount = 0;
+
+    for (let keyIdx=0; keyIdx < keys.length; keyIdx++) {
+      uncheckedCount += this.sharedData.class1Pretest.airBrake[keys[keyIdx]] == false ? 1 : 0;
+    }
+
+    return uncheckedCount;
   }
 }

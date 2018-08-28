@@ -27,7 +27,7 @@
         <ion-icon class="header-badge" name="md-bus"></ion-icon>
       </button>
       <button ion-button icon-only clear>
-        <ion-badge item-end [ngClass]="sharedData.badgeColor(sharedData.getTotalDemeritCount())">
+        <ion-badge item-end [ngClass]="sharedData.badgeColor(sharedData.getTotalDemeritCount(), 0)">
           {{ sharedData.getTotalDemeritCount() }}
         </ion-badge>
         <ion-icon name="notifications" class="header-badge"></ion-icon>
@@ -149,7 +149,7 @@
               LEFT TURN
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.leftTurn.infractions.length)" (click)="sharedData.hideDemerits.leftTurn=!sharedData.hideDemerits.leftTurn">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.leftTurn.infractions.length, 0)" (click)="sharedData.hideDemerits.leftTurn=!sharedData.hideDemerits.leftTurn">
                 {{ sharedData.getDemeritCount(sharedData.leftTurn) }}
               </span>
               <span [hidden]="!showAttachmentIcon(0)" class="attachment-flag">
@@ -227,7 +227,7 @@
               RIGHT TURN
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.rightTurn.infractions.length)" (click)="sharedData.hideDemerits.rightTurn=!sharedData.hideDemerits.rightTurn">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.rightTurn.infractions.length, 0)" (click)="sharedData.hideDemerits.rightTurn=!sharedData.hideDemerits.rightTurn">
                 {{ sharedData.getDemeritCount(sharedData.rightTurn) }}
               </span>
               <span [hidden]="!showAttachmentIcon(1)" class="attachment-flag">
@@ -305,7 +305,7 @@
               ROAD POSITION
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.roadPosition.infractions.length)" (click)="sharedData.hideDemerits.roadPosition=!sharedData.hideDemerits.roadPosition">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.roadPosition.infractions.length, 0)" (click)="sharedData.hideDemerits.roadPosition=!sharedData.hideDemerits.roadPosition">
                 {{ sharedData.getDemeritCount(sharedData.roadPosition) }}
               </span>
               <span [hidden]="!showAttachmentIcon(2)" class="attachment-flag">
@@ -383,7 +383,7 @@
               SPEED
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.speed.infractions.length)" (click)="sharedData.hideDemerits.speed=!sharedData.hideDemerits.speed">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.speed.infractions.length, 0)" (click)="sharedData.hideDemerits.speed=!sharedData.hideDemerits.speed">
                 {{ sharedData.getDemeritCount(sharedData.speed) }}
               </span>
               <span [hidden]="!showAttachmentIcon(3)" class="attachment-flag">
@@ -461,7 +461,7 @@
               BACKING
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.backing.infractions.length)" (click)="sharedData.hideDemerits.backing=!sharedData.hideDemerits.backing">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.backing.infractions.length, 0)" (click)="sharedData.hideDemerits.backing=!sharedData.hideDemerits.backing">
                 {{ sharedData.getDemeritCount(sharedData.backing) }}
               </span>
               <span [hidden]="!showAttachmentIcon(4)" class="attachment-flag">
@@ -539,7 +539,7 @@
               SHIFTING
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.shifting.infractions.length)" (click)="sharedData.hideDemerits.shifting=!sharedData.hideDemerits.shifting">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.shifting.infractions.length, 0)" (click)="sharedData.hideDemerits.shifting=!sharedData.hideDemerits.shifting">
                 {{ sharedData.getDemeritCount(sharedData.shifting) }}
               </span>
               <span [hidden]="!showAttachmentIcon(5)" class="attachment-flag">
@@ -617,7 +617,7 @@
               RIGHT OF WAY
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.rightOfWay.infractions.length)" (click)="sharedData.hideDemerits.rightOfWay=!sharedData.hideDemerits.rightOfWay">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.rightOfWay.infractions.length, 0)" (click)="sharedData.hideDemerits.rightOfWay=!sharedData.hideDemerits.rightOfWay">
                 {{ sharedData.getDemeritCount(sharedData.rightOfWay) }}
               </span>
               <span [hidden]="!showAttachmentIcon(6)" class="attachment-flag">
@@ -695,7 +695,7 @@
               UNCOUPLING
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.uncoupling.infractions.length)" (click)="sharedData.hideDemerits.uncoupling=!sharedData.hideDemerits.uncoupling">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.uncoupling.infractions.length, 0)" (click)="sharedData.hideDemerits.uncoupling=!sharedData.hideDemerits.uncoupling">
                 {{ sharedData.getDemeritCount(sharedData.uncoupling) }}
               </span>
               <span [hidden]="!showAttachmentIcon(7)" class="attachment-flag">
@@ -773,7 +773,7 @@
               COUPLING
             </ion-col>
             <ion-col col-3>
-              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.coupling.infractions.length)" (click)="sharedData.hideDemerits.coupling=!sharedData.hideDemerits.coupling">
+              <span class="demerit-circle" [ngClass]="sharedData.badgeColor(sharedData.coupling.infractions.length, 0)" (click)="sharedData.hideDemerits.coupling=!sharedData.hideDemerits.coupling">
                 {{ sharedData.getDemeritCount(sharedData.coupling) }}
               </span>
               <span [hidden]="!showAttachmentIcon(8)" class="attachment-flag">

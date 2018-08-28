@@ -24,7 +24,7 @@
         <ion-icon class="header-badge" name="md-bus"></ion-icon>
       </button>
       <button ion-button icon-only clear>
-        <ion-badge item-end [ngClass]="sharedData.badgeColor(sharedData.getTotalDemeritCount())">
+        <ion-badge item-end [ngClass]="sharedData.badgeColor(sharedData.getTotalDemeritCount(), 0)">
           {{ sharedData.getTotalDemeritCount() }}
         </ion-badge>
         <ion-icon name="notifications" class="header-badge"></ion-icon>

@@ -179,7 +179,7 @@ export class HomePage {
       case '4U':
         this.sharedData.class4UPretest = exam.pretrip;
         break;
-      case '4-17':
+      case '4_17':
         this.sharedData.class417Pretest = exam.pretrip;
         break;
       default:

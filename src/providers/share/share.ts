@@ -152,25 +152,27 @@ export class ShareProvider {
 
         completedCorrectly: false,
 
-        supplyReservoir: false,
-        airCompressor: false,
-        lowPressureWarning: false,
-        airLines: false,
-        brakeChambers: false,
-        buildUpTime: false,
-        governorOperation: false,
-        pushRodTravel: false,
-        leakageTest: false,
+        airBrake: {
+            supplyReservoir: false,
+            airCompressor: false,
+            lowPressureWarning: false,
+            airLines: false,
+            brakeChambers: false,
+            buildUpTime: false,
+            governorOperation: false,
+            pushRodTravel: false,
+            leakageTest: false,
 
-        supplyValve: false,
-        trailerBrakes: false,
-        gladHandsDisc: false,
-        serviceBrake: false,
+            supplyValve: false,
+            trailerBrakes: false,
+            gladHandsDisc: false,
+            serviceBrake: false,
 
-        tractorPark: false,
-        trailerPark: false,
-        handValve: false,
-        footValve: false
+            tractorPark: false,
+            trailerPark: false,
+            handValve: false,
+            footValve: false
+        }
     }
 
     class3PretestDefaults = {
@@ -231,23 +233,20 @@ export class ShareProvider {
 
         completedCorrectly: false,
 
-        supplyReservoir: false,
-        airCompressor: false,
-        lowPressureWarning: false,
-        airLines: false,
-        brakeChambers: false,
-        buildUpTime: false,
-        governorOperation: false,
-        pushRodTravel: false,
-        leakageTest: false,
+        airBrake: {
+            supplyReservoir: false,
+            airCompressor: false,
+            lowPressureWarning: false,
+            airLines: false,
+            brakeChambers: false,
+            buildUpTime: false,
+            governorOperation: false,
+            pushRodTravel: false,
+            leakageTest: false,
 
-        supplyValve: false,
-        trailerBrakes: false,
-        gladHandDisc: false,
-        serviceBrake: false,
-
-        footValve: false,
-        parkingBrakeYellow: false
+            footValve: false,
+            parkingBrakeYellow: false
+        },
     }
 
     code07PretestDefaults = {
@@ -432,17 +431,19 @@ export class ShareProvider {
 
         completedCorrectly: false,
 
-        supplyReservoir: false,
-        airCompressor: false,
-        lowPressureWarning: false,
-        brakeChambers: false,
-        buildUpTime: false,
-        governorOperation: false,
-        pushRodTravel: false,
-        leakageTest: false,
+        airBrake: {
+            supplyReservoir: false,
+            airCompressor: false,
+            lowPressureWarning: false,
+            brakeChambers: false,
+            buildUpTime: false,
+            governorOperation: false,
+            pushRodTravel: false,
+            leakageTest: false,
 
-        footValve: false,
-        parkingBrakeYellow: false
+            footValve: false,
+            parkingBrakeYellow: false
+        }
     }
 
     class4UPretestDefaults = {
@@ -627,11 +628,14 @@ export class ShareProvider {
         return count;
     }  
     
-    badgeColor(length) {
+    badgeColor(length, threshold) {
+        debugger;
         if (length == 0) {
-          return 'good';
+            return 'good';
+        } else if (length <= threshold) {
+            return 'ok';
         } else {
-          return 'bad';
+            return 'bad';
         }
     }
 
@@ -653,7 +657,6 @@ export class ShareProvider {
           return { valid: false };
         }
 
-        debugger;
         switch (this.licenseClass) {
             case '1':
                 this.currentExam.pretrip = this.class1Pretest;
