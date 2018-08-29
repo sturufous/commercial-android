@@ -301,3 +301,16 @@ ion-title {
 .inactiveHighlight {
     background-color: $SIDEMENU_TRANSPARENT;
 }
+
+.pretrip-status {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.pretrip-progress {
+    background-color:#1b8dd6;
+    color: white;
+    text-align: center;
+    font-size: 12pt;
+    padding: 5px;
+}

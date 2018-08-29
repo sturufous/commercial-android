@@ -44,7 +44,7 @@ export class Pretrip2Page {
     let keys = Object.keys(this.sharedData.class2Pretest);
     let uncheckedCount = 0;
 
-    for (let keyIdx=1; keyIdx < keys.length; keyIdx++) {
+    for (let keyIdx=2; keyIdx < keys.length; keyIdx++) {
       uncheckedCount += this.sharedData.class2Pretest[keys[keyIdx]] == false ? 1 : 0;
     }
 
@@ -61,5 +61,33 @@ export class Pretrip2Page {
     }
 
     return uncheckedCount;
+  }
+
+  finalizePretrip() {
+
+    if (this.sharedData.class2Pretest.complete) {
+      let results = this.sharedData.results.getRawValue();
+      let aDemerits = this.getAirBrakeDemerits();
+      let pDemerits = this.getPretripDemerits();
+
+      let airPretripPassed = (aDemerits <= this.airBrakeThreshold);
+      let pretripPassed = (pDemerits <= this.preTripThreshold);
+      let msg = this.sharedData.formatPretripMessage(pDemerits, this.preTripThreshold, aDemerits, this.airBrakeThreshold);
+
+      if (airPretripPassed && pretripPassed) {
+        this.sharedData.examinationTabEnabled = true;
+        this.sharedData.class2Pretest.passed = true;
+        this.sharedData.presentBasicAlert("PASSED", msg);
+      } else {
+        results.qualified = "No";
+        this.sharedData.examinationTabEnabled = false;
+        this.sharedData.results.setValue(results);
+        this.sharedData.presentBasicAlert("FAILED", msg);
+      }
+
+      this.saveCurrentExam();
+    } else {
+      this.sharedData.examinationTabEnabled = false;
+    }
   }
 }

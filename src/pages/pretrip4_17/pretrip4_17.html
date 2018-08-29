@@ -214,20 +214,17 @@
       </ion-item>
     </ion-list>
   </ion-card>  
-
-  <div class="spacer" style="width: 748px; height: 15px;"></div>
-
-  <ion-card class="sub-header">
-    <ion-item class="item-trns" style="border: 0">
-      <h2 style="color: white;text-align: center">Copyright &copy; ICBC 2018</h2>
-    </ion-item>
-  </ion-card>  
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
     <ion-grid>
-      <ion-row align-items-center>
+      <ion-row>
+        <ion-col class="pretrip-progress" col-12>
+          PRETRIP STATUS
+        </ion-col>
+      </ion-row>
+      <ion-row class="pretrip-status" align-items-center>
         <ion-col col-2 class="demerit-label">
           Pretrip&nbsp;&nbsp;<br>Demerit 
         </ion-col>
@@ -238,7 +235,7 @@
           Test&nbsp;&nbsp;<br>Done
         </ion-col>
         <ion-col col-2>
-          <ion-toggle></ion-toggle>
+          <ion-toggle (ionChange)="finalizePretrip(item)" [(ngModel)]="sharedData.class417Pretest.complete"></ion-toggle>
         </ion-col>
       </ion-row>
     </ion-grid>

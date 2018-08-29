@@ -856,10 +856,15 @@ export class ShareProvider {
           '<table>' +
           '<tr><td colspan="2"><h3>Pretrip Complete</h3></td></tr>' +
           '<tr><td>Pretrip Demerits:&nbsp;</td><td style="white-space: nowrap">' + pDemerits + '</td></tr>' +
-          '<tr><td>Pretrip Threshold:&nbsp;</td><td style="white-space: nowrap">' + pThreshold + '</td></tr>' +
+          '<tr><td>Pretrip Threshold:&nbsp;</td><td style="white-space: nowrap">' + pThreshold + '</td></tr>';
+
+        if (aDemerits !== null) {
+          message +=
           '<tr><td>Airbrake Demerits:&nbsp;</td><td>' + aDemerits + '</td></tr>' +
-          '<tr><td>Airbrake Threshold:&nbsp;</td><td>' + aThreshold + '</td></tr>' +
-          '</table>';
+          '<tr><td>Airbrake Threshold:&nbsp;</td><td>' + aThreshold + '</td></tr>';
+        }
+
+        message +=  '</table>';
     
         return message;
     }
