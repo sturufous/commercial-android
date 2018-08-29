@@ -96,6 +96,8 @@ export class ShareProvider {
 
     class1PretestDefaults = {
         class: '1',
+        complete: false,
+        passed: false,
         wheelsBlocked: false,
         properTools: false,
 
@@ -177,6 +179,8 @@ export class ShareProvider {
 
     class3PretestDefaults = {
         class: '3',
+        complete: false,
+        passed: false,
         wheelsBlocked: false,
         properTools: false,
 
@@ -251,6 +255,8 @@ export class ShareProvider {
 
     code07PretestDefaults = {
         code: '07',
+        complete: false,
+        passed: false,
         wheelsBlocked: false,
 
         leaks: false,
@@ -315,6 +321,8 @@ export class ShareProvider {
 
     code20PretestDefaults = {
         code: '20',
+        complete: false,
+        passed: false,
         wheelsBlocked: false,
 
         leaks: false,
@@ -372,6 +380,8 @@ export class ShareProvider {
 
     class2PretestDefaults = {
         class: '2',
+        complete: false,
+        passed: false,
         wheelsBlocked: false,
         properTools: false,
 
@@ -448,6 +458,8 @@ export class ShareProvider {
 
     class4UPretestDefaults = {
         class: '4U',
+        complete: false,
+        passed: false,
         wheelsBlocked: false,
         properTools: false,
 
@@ -509,6 +521,8 @@ export class ShareProvider {
 
     class417PretestDefaults = {
         class: '4_17',
+        complete: false,
+        passed: false,
         parkingBrakeSet: false,
 
         engineOil: false,
@@ -629,7 +643,7 @@ export class ShareProvider {
     }  
     
     badgeColor(length, threshold) {
-        debugger;
+        
         if (length == 0) {
             return 'good';
         } else if (length <= threshold) {
@@ -836,6 +850,20 @@ export class ShareProvider {
         });
     }
 
+    formatPretripMessage(pDemerits, pThreshold, aDemerits, aThreshold) {
+    
+        let message = 
+          '<table>' +
+          '<tr><td colspan="2"><h3>Pretrip Complete</h3></td></tr>' +
+          '<tr><td>Pretrip Demerits:&nbsp;</td><td style="white-space: nowrap">' + pDemerits + '</td></tr>' +
+          '<tr><td>Pretrip Threshold:&nbsp;</td><td style="white-space: nowrap">' + pThreshold + '</td></tr>' +
+          '<tr><td>Airbrake Demerits:&nbsp;</td><td>' + aDemerits + '</td></tr>' +
+          '<tr><td>Airbrake Threshold:&nbsp;</td><td>' + aThreshold + '</td></tr>' +
+          '</table>';
+    
+        return message;
+    }
+    
     // Handles situation where side menu is accessed before user profile is loaded
     getFirstName() {
         return typeof this.userProfile != 'undefined' ? this.userProfile.firstName : '';

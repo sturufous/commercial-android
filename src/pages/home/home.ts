@@ -90,6 +90,7 @@ export class HomePage {
 
     examTemplate.licenseClass = '1';
     examTemplate.pretrip = this.sharedData.class1PretestDefaults;
+    this.sharedData.examinationTabEnabled = false;
 
     // Blank out all pre-existing pre-trip test data
     this.sharedData.class1Pretest = this.sharedData.class1PretestDefaults;
@@ -150,8 +151,13 @@ export class HomePage {
     let revision = exam._rev.substring(0, idx);
 
     this.sharedData.detailsTabEnabled = true;
-    this.sharedData.examinationTabEnabled = true;
     this.sharedData.pretripTabEnabled = true;
+
+    if (exam.pretrip.passed) {
+      this.sharedData.examinationTabEnabled = true;
+    } else {
+      this.sharedData.examinationTabEnabled = false;
+    }
 
     this.sharedData.currentExam = exam;
     this.sharedData.examRevision = revision;

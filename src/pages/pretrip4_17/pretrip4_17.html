@@ -62,7 +62,7 @@
     <ion-list>
       <ion-item>
         <ion-label>Parking Brake Set</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.parkingBrakeSet"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.parkingBrakeSet" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
     </ion-list>
 
@@ -70,31 +70,31 @@
     <ion-list>
       <ion-item>
         <ion-label>Engine Oil</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.engineOil"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.engineOil" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Coolant</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.coolant"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.coolant" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Battery</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.battery"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.battery" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Belts</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.belts"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.belts" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Hoses</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.hoses"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.hoses" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Leaks</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.leaks"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.leaks" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Other Fluids</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.otherFluids"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.otherFluids" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
     </ion-list>
 
@@ -102,35 +102,35 @@
     <ion-list>
       <ion-item>
         <ion-label>Defroster/Heater</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.defrosterHeater"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.defrosterHeater" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Fuel Guage</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.fuelGuage"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.fuelGuage" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Horn</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.horn"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.horn" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Interior Lights/Instrument Lights</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.interiorLights"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.interiorLights" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Mirrors</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.mirrors"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.mirrors" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Seats, Seatbelts</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.seatBelts"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.seatBelts" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Windows and Windshield Condition</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.windowsCondition"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.windowsCondition" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Windshield Wipers & Washer</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.wipersWasher"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.wipersWasher" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
     </ion-list>
 
@@ -138,27 +138,27 @@
     <ion-list>
       <ion-item>
         <ion-label>Body/Structural Damage</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.bodyFrame"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.bodyFrame" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Doors</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.doors"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.doors" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Exhaust</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.exhaust"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.exhaust" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Fuel Cap</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.fuelCap"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.fuelCap" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>License Plates - Front, Rear</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.licensePlates"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.licensePlates" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Trunk</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.trunk"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.trunk" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
     </ion-list>
 
@@ -166,27 +166,27 @@
     <ion-list>
       <ion-item>
         <ion-label>Low/High Beam Headlights</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.headlights"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.headlights" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>4 Way Emergency Flashers (in cab)</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.emergencyFlashers"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.emergencyFlashers" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Turn Signals</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.turnSignals"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.turnSignals" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Tail Lights</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.tailLights"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.tailLights" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Brake Lights</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.brakeLights"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.brakeLights" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>License Plate Lights</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.licenseLights"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.licenseLights" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
     </ion-list>
 
@@ -194,11 +194,11 @@
     <ion-list>
       <ion-item>
         <ion-label>Tire Condition</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.tireCondition"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.tireCondition" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Lug Nuts</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.lugNuts"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.lugNuts" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
     </ion-list>
 
@@ -206,11 +206,11 @@
     <ion-list>
       <ion-item>
         <ion-label>Parking Brake</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.parkingBrake"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.parkingBrake" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Service Brake</ion-label>
-        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.serviceBrake"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="sharedData.class417Pretest.serviceBrake" [disabled]="sharedData.class417Pretest.complete"></ion-checkbox>
       </ion-item>
     </ion-list>
   </ion-card>  

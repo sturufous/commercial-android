@@ -4,7 +4,6 @@ page-pretrip1 {
         font-size: 22pt !important;
         color: #4c4c4c;
         padding-left: 8px;
-        margin-top: -3px;
     }
 
     .divider {
@@ -22,5 +21,13 @@ page-pretrip1 {
 
     ion-item {
         border-bottom: 1px solid #CCC !important;
+    }
+
+    .pretrip-progress {
+        background-color:#1b8dd6;
+        color: white;
+        text-align: center;
+        font-size: 12pt;
+        padding: 5px;
     }
 }
